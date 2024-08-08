@@ -8,7 +8,7 @@ namespace FirefliesTwoO
         public GameObject Fireflies;
         public ParticleSystem Particles;
         public ParticleSystemRenderer Renderer;
-        public Material material;
+        public Material Material;
 
         public float Speed
         {
@@ -36,11 +36,11 @@ namespace FirefliesTwoO
         
         public float Alpha
         {
-            get => material.color.a;
+            get => Material.color.a;
             set
             {
-                Color color = material.color;
-                material.color = new Color(color.r, color.g, color.b, value);
+                Color color = Material.color;
+                Material.color = new Color(color.r, color.g, color.b, value);
             }
         }
         

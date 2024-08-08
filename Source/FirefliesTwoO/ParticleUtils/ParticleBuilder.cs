@@ -31,7 +31,7 @@ namespace FirefliesTwoO
             emissionModule.enabled = true;
             emissionModule.rateOverTime = emissionRate;
         }
-
+        
         public static void ConfigureNoiseModule(ParticleSystem particleSys)
         {
             ParticleSystem.NoiseModule noiseModule = particleSys.noise;

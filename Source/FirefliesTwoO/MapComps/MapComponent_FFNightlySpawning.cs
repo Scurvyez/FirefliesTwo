@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -8,11 +9,10 @@ namespace FirefliesTwoO
     [StaticConstructorOnStartup]
     public class MapComponent_FFNightlySpawning : MapComponent
     {
-        private bool _firefliesSpawned;
-        
         private static readonly Color DefaultFireflyColor = new(1f, 1f, 0f, 1f);
         private static Vector3 _spawnableArea;
-        private readonly List<FFSystem> _ffSystems;
+        private List<FFSystem> _ffSystems;
+        private bool _firefliesSpawned;
         
         private bool IsActive
         {
@@ -56,6 +56,7 @@ namespace FirefliesTwoO
                 if (_firefliesSpawned) return;
                 foreach (FFSystem ffSystem in _ffSystems)
                 {
+                    TryGetEmitPosition(ffSystem);
                     ffSystem.Particles.Play();
                 }
                 _firefliesSpawned = true;
@@ -66,7 +67,6 @@ namespace FirefliesTwoO
                 foreach (FFSystem ffSystem in _ffSystems)
                 {
                     ffSystem.Particles.Stop();
-                    TryGetEmitPosition(ffSystem);
                 }
                 _firefliesSpawned = false;
             }
@@ -75,7 +75,7 @@ namespace FirefliesTwoO
         public override void MapComponentUpdate()
         {
             if (!FFDefOf.FF_Config.allowedBiomes.Contains(map.Biome)) return;
-            foreach (FFSystem ffSystem in _ffSystems)
+            foreach (FFSystem ffSystem in _ffSystems.Where(ffSystem => ffSystem != null))
             {
                 ffSystem.Speed = (float)Find.TickManager.CurTimeSpeed * FFDefOf.FF_Config.particleVelocityFactor;
             }
@@ -113,9 +113,19 @@ namespace FirefliesTwoO
         private static FFSystem CreateFFSystem()
         {
             GameObject fireflies = new ("FFSystem");
-            ParticleSystem particles = fireflies.AddComponent<ParticleSystem>();
-            ParticleSystemRenderer renderer = fireflies.AddComponent<ParticleSystemRenderer>();
-
+            
+            ParticleSystem particles = fireflies.GetComponent<ParticleSystem>();
+            if (particles == null)
+            {
+                particles = fireflies.AddComponent<ParticleSystem>();
+            }
+            
+            ParticleSystemRenderer renderer = fireflies.GetComponent<ParticleSystemRenderer>();
+            if (renderer == null)
+            {
+                renderer = fireflies.AddComponent<ParticleSystemRenderer>();
+            }
+            
             ParticleBuilder.ConfigureParticleSystem(particles, FFDefOf.FF_Config.particlesMaxCount, FFDefOf.FF_Config.particleLifetime);
             ParticleBuilder.ConfigureShapeModule(particles, _spawnableArea);
             ParticleBuilder.ConfigureEmissionModule(particles, FFDefOf.FF_Config.particleEmissionRate);
@@ -129,7 +139,8 @@ namespace FirefliesTwoO
             {
                 Fireflies = fireflies,
                 Particles = particles,
-                Renderer = renderer
+                Renderer = renderer,
+                Material = material
             };
         }
     }

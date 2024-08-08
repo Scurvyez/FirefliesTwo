@@ -7,17 +7,17 @@ namespace FirefliesTwoO
     public class FFConfigDef : Def
     {
         // MapComponent_FFNightlySpawning
-        public List<BiomeDef> allowedBiomes; // TODO: CHANGE FOR RELEASE
-        public int numFFSystems = 10; // TODO: CHANGE FOR RELEASE
-        public int particlesMaxCount = 20; // TODO: CHANGE FOR RELEASE
-        public float particleEmissionRate = 100f; // TODO: CHANGE FOR RELEASE
-        public float particleLifetime = 0.1f; // TODO: CHANGE FOR RELEASE
-        public float particleSizeFactor = 0.3f; // TODO: CHANGE FOR RELEASE
-        public float particleVelocityFactor = 0.1f; // TODO: CHANGE FOR RELEASE?
-        public float startHour = 19f; // TODO: CHANGE FOR RELEASE, make a setting?
-        public float endHour = 4f; // TODO: CHANGE FOR RELEASE, make a setting?
-        public int spawnableAreaCellFactor = 13; // TODO: CHANGE FOR RELEASE
-        public int minEdgeDistance = 20; // TODO: CHANGE FOR RELEASE
+        public List<BiomeDef> allowedBiomes;
+        public int numFFSystems = 10;
+        public int particlesMaxCount = 20;
+        public float particleEmissionRate = 100f;
+        public float particleLifetime = 0.1f;
+        public float particleSizeFactor = 0.3f;
+        public float particleVelocityFactor = 0.1f;
+        public float startHour = 19f;
+        public float endHour = 4f;
+        public int spawnableAreaCellFactor = 13;
+        public int minEdgeDistance = 20;
 
         // ParticleBuilder
         public FloatRange shapeRandomDirectionAmount = new (0f, 360f);
