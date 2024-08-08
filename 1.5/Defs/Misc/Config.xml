@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <FirefliesTwoO.FFConfigDef>
+        <defName>FF_Config</defName>
+
+        <!-- MapComponent_FFNightlySpawning -->
+        <allowedBiomes>
+            <li>BorealForest</li>
+            <li>TemperateForest</li>
+            <li>TemperateSwamp</li>
+            <li>TropicalRainforest</li>
+            <li>TropicalSwamp</li>
+            <li>AridShrubland</li>
+            <li>Desert</li>
+            <li>ExtremeDesert</li>
+        </allowedBiomes>
+
+        <numFFSystems>10</numFFSystems>
+        <particlesMaxCount>20</particlesMaxCount>
+        <particleEmissionRate>100</particleEmissionRate>
+        <particleLifetime>0.1</particleLifetime>
+        <particleSizeFactor>0.3</particleSizeFactor>
+        <particleVelocityFactor>0.075</particleVelocityFactor>
+        <startHour>19</startHour>
+        <endHour>4</endHour>
+        <spawnableAreaCellFactor>13</spawnableAreaCellFactor>
+        <minEdgeDistance>20</minEdgeDistance>
+
+        <!-- ParticleBuilder -->
+        <shapeRandomDirectionAmount>0~360</shapeRandomDirectionAmount>
+        <noiseOctaveCount>3</noiseOctaveCount>
+        <noiseFrequency>1.5</noiseFrequency>
+        <noisePositionAmount>0.25</noisePositionAmount>
+        <noiseStrength>10</noiseStrength>
+    </FirefliesTwoO.FFConfigDef>
+
+</Defs>

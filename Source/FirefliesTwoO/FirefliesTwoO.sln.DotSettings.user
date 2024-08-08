@@ -1,0 +1,2 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/InlayHints/CSharpTypeConversionHintsOptions/ExclusionList/=26071f1a_002Dec69_002D4758_002Dae09_002D8d0eb3a4e69d/@EntryIndexedValue">UnityEngine.ParticleSystem+MinMaxCurve(System.Single)</s:String></wpf:ResourceDictionary>

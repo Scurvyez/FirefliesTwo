@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+    <name>FirefliesTwo</name>
+    <author>Scurvyez</author>
+    <packageId>Scurvyez.FirefliesTwo</packageId>
+    <supportedVersions>
+        <li>1.5</li>
+    </supportedVersions>
+
+    <description>
+        Discord: Steveo.o
+        steam: Scurvyez
+
+        A simple, yet... heart-warming, mod that adds fireflies (as pure visual effects) to the Rim.
+    </description>
+
+    <loadAfter>
+        <li>Ludeon.RimWorld</li>
+    </loadAfter>
+
+</ModMetaData>
