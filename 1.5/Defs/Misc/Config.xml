@@ -21,7 +21,7 @@
 
         <!-- particleEmissionRate / particlesMaxCount = ~num active at any one moment -->
         <particlesMaxCount>10000</particlesMaxCount> <!-- 25 -->
-        <particleEmissionRate>10000</particleEmissionRate> <!-- 315 -->
+        <particleEmissionRate>100000000000</particleEmissionRate> <!-- 315 -->
         <particleLifetime>0.1</particleLifetime>
         <particleSizeFactor>0.3</particleSizeFactor>
         <particleVelocityFactor>0.0275</particleVelocityFactor>

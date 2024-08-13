@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -53,7 +52,7 @@ namespace FirefliesTwoO
             ParticleSystem.MainModule main = _ffParticleSystem.main;
             main.simulationSpeed = (float)Find.TickManager.CurTimeSpeed * FFDefOf.FF_Config.particleVelocityFactor;
             
-            DEBUG_DrawSpawnableArea();
+            //DEBUG_DrawSpawnableArea();
         }
 
         private bool IsActive
@@ -103,13 +102,11 @@ namespace FirefliesTwoO
         {
             IntVec3 intVecPosition = position.ToIntVec3();
             float posLightAmount = map.glowGrid.GroundGlowAt(intVecPosition);
-            return intVecPosition.InBounds(map) // in bounds
-                   && !map.terrainGrid.TerrainAt(intVecPosition).IsWater // not water
-                   && map.roofGrid.RoofAt(intVecPosition) == null // not roofed
-                   && posLightAmount < 0.05f // low light
-                   && map.thingGrid.ThingsAt(intVecPosition).All(thing =>
-                       thing.def.category != ThingCategory.Building || // no buildings
-                       thing.def.building.isNaturalRock); // no natural stone
+            return intVecPosition.ToVector3().InBounds(map)
+                   && !map.terrainGrid.TerrainAt(intVecPosition).IsWater
+                   && map.roofGrid.RoofAt(intVecPosition) == null
+                   && posLightAmount < 0.05f
+                   && intVecPosition.Standable(map);
         }
 
         private void RestoreParticleSystemState()
@@ -149,7 +146,7 @@ namespace FirefliesTwoO
         private void DEBUG_DrawSpawnableArea()
         {
             _validEmissionCells = _meshGenerator.GetValidCells();
-            if (_validEmissionCells is { Count: > 0 })
+            if (_validEmissionCells.Count > 0)
             {
                 GenDraw.DrawFieldEdges(_validEmissionCells, Color.yellow);
             }

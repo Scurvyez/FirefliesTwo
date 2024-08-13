@@ -11,11 +11,14 @@ namespace FirefliesTwoO
         private readonly Func<Vector3, bool> _isPositionValid;
         private readonly List<IntVec3> _validCells;
 
+        private readonly System.Random _random;
+
         public ParticleMeshGenerator(Map map, Func<Vector3, bool> isPositionValid)
         {
             _map = map;
             _isPositionValid = isPositionValid;
             _validCells = [];
+            _random = new System.Random();
         }
 
         public Mesh CreateMeshFromValidCells()
@@ -36,26 +39,32 @@ namespace FirefliesTwoO
 
                     if (!_isPositionValid(worldPosition)) continue;
 
-                    // Add cell to valid cells list
                     _validCells.Add(new IntVec3(x, 0, z));
-
-                    // Add vertices for the cell
-                    vertices.Add(worldPosition + new Vector3(-0.5f, 0, -0.5f)); // Bottom-left
-                    vertices.Add(worldPosition + new Vector3(0.5f, 0, -0.5f));  // Bottom-right
-                    vertices.Add(worldPosition + new Vector3(0.5f, 0, 0.5f));   // Top-right
-                    vertices.Add(worldPosition + new Vector3(-0.5f, 0, 0.5f));  // Top-left
-
-                    // Create two triangles per cell
-                    triangles.Add(vertexIndex + 0);
-                    triangles.Add(vertexIndex + 1);
-                    triangles.Add(vertexIndex + 2);
-
-                    triangles.Add(vertexIndex + 0);
-                    triangles.Add(vertexIndex + 2);
-                    triangles.Add(vertexIndex + 3);
-
-                    vertexIndex += 4;
                 }
+            }
+
+            Shuffle(_validCells);
+            int halfCount = _validCells.Count / 2;
+            _validCells.RemoveRange(halfCount, _validCells.Count - halfCount);
+
+            foreach (IntVec3 cell in _validCells)
+            {
+                Vector3 worldPosition = cell.ToVector3() + new Vector3(0, AltitudeLayer.VisEffects.AltitudeFor(), 0);
+
+                vertices.Add(worldPosition + new Vector3(-0.5f, 0, -0.5f)); // Bottom-left
+                vertices.Add(worldPosition + new Vector3(0.5f, 0, -0.5f));  // Bottom-right
+                vertices.Add(worldPosition + new Vector3(0.5f, 0, 0.5f));   // Top-right
+                vertices.Add(worldPosition + new Vector3(-0.5f, 0, 0.5f));  // Top-left
+
+                triangles.Add(vertexIndex + 0);
+                triangles.Add(vertexIndex + 1);
+                triangles.Add(vertexIndex + 2);
+
+                triangles.Add(vertexIndex + 0);
+                triangles.Add(vertexIndex + 2);
+                triangles.Add(vertexIndex + 3);
+
+                vertexIndex += 4;
             }
 
             mesh.vertices = vertices.ToArray();
@@ -68,6 +77,17 @@ namespace FirefliesTwoO
         public List<IntVec3> GetValidCells()
         {
             return _validCells;
+        }
+
+        private void Shuffle<T>(List<T> list)
+        {
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = _random.Next(n + 1);
+                (list[k], list[n]) = (list[n], list[k]);
+            }
         }
     }
 }

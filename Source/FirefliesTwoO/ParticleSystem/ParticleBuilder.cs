@@ -19,7 +19,7 @@ namespace FirefliesTwoO
             ConfigureEmissionModule(particleSys, FFDefOf.FF_Config.particleEmissionRate);
             ConfigureNoiseModule(particleSys);
             ConfigureSizeOverLifetimeModule(particleSys, FFDefOf.FF_Config.particleSizeFactor);
-            ConfigureColorOverLifetimeModule(particleSys, DefaultFireflyColor);
+            ConfigureColorOverLifetimeModule(particleSys, Color.green);
             Material material = new(GetParticleShader());
             ConfigureTrailModule(particleSys, material);
             ConfigureRenderer(particleSys, material, Assets.Firefly);
