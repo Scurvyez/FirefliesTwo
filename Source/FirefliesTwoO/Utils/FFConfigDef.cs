@@ -12,7 +12,6 @@ namespace FirefliesTwoO
         public float particleEmissionRate = 100f;
         public float particleLifetime = 0.1f;
         public float particleSizeFactor = 0.3f;
-        public float particleVelocityFactor = 0.1f;
         public float startHour = 19f;
         public float endHour = 4f;
 

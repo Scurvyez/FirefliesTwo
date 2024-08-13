@@ -13,13 +13,11 @@ namespace FirefliesTwoO
         private bool _firefliesSpawned;
         private bool _isSystemActive;
         private float _simulationSpeed;
-        private readonly Vector3 _mapSize;
 
         private List<IntVec3> _validEmissionCells;
 
         public MapComponent_FFNightlySpawning(Map map) : base(map)
         {
-            _mapSize = new Vector3(map.Size.x, 1f, map.Size.z);
             // Run initialization via a LongEventHandler to combat intermittent crashing
             LongEventHandler.ExecuteWhenFinished(InitializeMapSystems);
         }
@@ -50,7 +48,7 @@ namespace FirefliesTwoO
             if (_ffParticleSystem == null) return;
 
             ParticleSystem.MainModule main = _ffParticleSystem.main;
-            main.simulationSpeed = (float)Find.TickManager.CurTimeSpeed * FFDefOf.FF_Config.particleVelocityFactor;
+            main.simulationSpeed = (float)Find.TickManager.CurTimeSpeed * 1f;
             
             //DEBUG_DrawSpawnableArea();
         }
@@ -80,7 +78,7 @@ namespace FirefliesTwoO
 
             if (_ffParticleSystem == null)
             {
-                _ffParticleSystem = ParticleBuilder.CreateFireflyParticleSystem(_mapSize, null);
+                _ffParticleSystem = ParticleBuilder.CreateFireflyParticleSystem(null);
                 _ffParticleSystem.transform.position = Vector3.zero;
             }
 
