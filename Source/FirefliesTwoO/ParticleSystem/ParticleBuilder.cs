@@ -5,34 +5,59 @@ namespace FirefliesTwoO
 {
     public static class ParticleBuilder
     {
-        public static void ConfigureParticleSystem(ParticleSystem particleSys, int maxNumFireflies, float particleLifetime)
+        private static readonly Color DefaultFireflyColor = new(1f, 1f, 0f, 1f);
+        
+        public static ParticleSystem CreateFireflyParticleSystem(Vector3 mapSize, Mesh spawnAreaMesh)
+        {
+            GameObject fireflies = new("FFSystem");
+
+            ParticleSystem particleSys = fireflies.GetComponent<ParticleSystem>() ?? fireflies.AddComponent<ParticleSystem>();
+            ParticleSystemRenderer renderer = fireflies.GetComponent<ParticleSystemRenderer>() ?? fireflies.AddComponent<ParticleSystemRenderer>();
+
+            ConfigureParticleSystem(particleSys, FFDefOf.FF_Config.particlesMaxCount, FFDefOf.FF_Config.particleLifetime);
+            ConfigureShapeModule(particleSys, mapSize, spawnAreaMesh);
+            ConfigureEmissionModule(particleSys, FFDefOf.FF_Config.particleEmissionRate);
+            ConfigureNoiseModule(particleSys);
+            ConfigureSizeOverLifetimeModule(particleSys, FFDefOf.FF_Config.particleSizeFactor);
+            ConfigureColorOverLifetimeModule(particleSys, DefaultFireflyColor);
+            Material material = new(GetParticleShader());
+            ConfigureTrailModule(particleSys, material);
+            ConfigureRenderer(particleSys, material, Assets.Firefly);
+
+            return particleSys;
+        }
+
+        private static void ConfigureParticleSystem(ParticleSystem particleSys, int maxNumFireflies, float particleLifetime)
         {
             ParticleSystem.MainModule mainModule = particleSys.main;
+            mainModule.simulationSpace = ParticleSystemSimulationSpace.World;
             mainModule.loop = false;
             mainModule.maxParticles = maxNumFireflies;
             mainModule.startLifetime = particleLifetime;
             mainModule.startSize = 1f;
-            mainModule.startSpeed = 10f;
+            mainModule.startSpeed = 1f;
             mainModule.duration = 99999;
         }
 
-        public static void ConfigureShapeModule(ParticleSystem particleSys, Vector3 areaSize)
+        private static void ConfigureShapeModule(ParticleSystem particleSys, Vector3 mapSize, Mesh spawnAreaMesh)
         {
             ParticleSystem.ShapeModule shapeModule = particleSys.shape;
             shapeModule.enabled = true;
-            shapeModule.shapeType = ParticleSystemShapeType.Box;
-            shapeModule.scale = areaSize;
+            //shapeModule.scale = mapSize;
+            shapeModule.shapeType = ParticleSystemShapeType.Mesh;
+            shapeModule.mesh = spawnAreaMesh;
+            shapeModule.meshShapeType = ParticleSystemMeshShapeType.Vertex;
             shapeModule.randomDirectionAmount = FFDefOf.FF_Config.shapeRandomDirectionAmount.RandomInRange;
         }
 
-        public static void ConfigureEmissionModule(ParticleSystem particleSys, float emissionRate)
+        private static void ConfigureEmissionModule(ParticleSystem particleSys, float emissionRate)
         {
             ParticleSystem.EmissionModule emissionModule = particleSys.emission;
             emissionModule.enabled = true;
             emissionModule.rateOverTime = emissionRate;
         }
         
-        public static void ConfigureNoiseModule(ParticleSystem particleSys)
+        private static void ConfigureNoiseModule(ParticleSystem particleSys)
         {
             ParticleSystem.NoiseModule noiseModule = particleSys.noise;
             noiseModule.enabled = true;
@@ -43,18 +68,8 @@ namespace FirefliesTwoO
             noiseModule.strength = FFDefOf.FF_Config.noiseStrength;
             noiseModule.quality = ParticleSystemNoiseQuality.Medium;
         }
-        
-        // FOR DEBUGGING
-        public static void ConfigureTrailModule(ParticleSystem particleSys)
-        {
-            ParticleSystem.TrailModule trailModule = particleSys.trails;
-            trailModule.enabled = true;
-            trailModule.mode = ParticleSystemTrailMode.PerParticle;
-            trailModule.dieWithParticles = true;
-            trailModule.inheritParticleColor = true;
-        }
 
-        public static void ConfigureSizeOverLifetimeModule(ParticleSystem particleSys, float particleSizeFactor)
+        private static void ConfigureSizeOverLifetimeModule(ParticleSystem particleSys, float particleSizeFactor)
         {
             ParticleSystem.SizeOverLifetimeModule sizeModule = particleSys.sizeOverLifetime;
             sizeModule.enabled = true;
@@ -66,7 +81,7 @@ namespace FirefliesTwoO
             sizeModule.size = new ParticleSystem.MinMaxCurve(1.0f, curve);
         }
 
-        public static void ConfigureColorOverLifetimeModule(ParticleSystem particleSys, Color baseColor)
+        private static void ConfigureColorOverLifetimeModule(ParticleSystem particleSys, Color baseColor)
         {
             ParticleSystem.ColorOverLifetimeModule colorOverLifetimeModule = particleSys.colorOverLifetime;
             colorOverLifetimeModule.enabled = true;
@@ -87,7 +102,7 @@ namespace FirefliesTwoO
             colorOverLifetimeModule.color = new ParticleSystem.MinMaxGradient(gradient);
         }
 
-        public static void ConfigureRenderer(ParticleSystem particleSys, Material material, Texture2D fireflyTexture)
+        private static void ConfigureRenderer(ParticleSystem particleSys, Material material, Texture2D fireflyTexture)
         {
             ParticleSystemRenderer renderer = particleSys.GetComponent<ParticleSystemRenderer>();
             renderer.material = material;
@@ -95,7 +110,19 @@ namespace FirefliesTwoO
             particleSys.Stop();
         }
         
-        public static Shader GetParticleShader()
+        // FOR DEBUGGING
+        private static void ConfigureTrailModule(ParticleSystem particleSys, Material material)
+        {
+            ParticleSystem.TrailModule trailModule = particleSys.trails;
+            trailModule.enabled = true;
+            trailModule.mode = ParticleSystemTrailMode.PerParticle;
+            trailModule.dieWithParticles = true;
+            ParticleSystemRenderer pSR = particleSys.GetComponent<ParticleSystemRenderer>();
+            pSR.trailMaterial = material;
+            pSR.trailMaterial.SetColor(Shader.PropertyToID("_Color"), Color.yellow);
+        }
+        
+        private static Shader GetParticleShader()
         {
             Shader shader = ShaderDatabase.TransparentPostLight;
             

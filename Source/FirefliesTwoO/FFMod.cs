@@ -13,9 +13,6 @@ namespace FirefliesTwoO
         public FFMod(ModContentPack content) : base(content)
         {
             mod = this;
-
-            Harmony harmony = new ("com.firefliestwoo");
-            harmony.PatchAll();
         }
     }
 }

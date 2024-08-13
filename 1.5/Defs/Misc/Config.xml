@@ -14,25 +14,26 @@
             <li>AridShrubland</li>
             <li>Desert</li>
             <li>ExtremeDesert</li>
+            <li MayRequire="Scurvyez.AlienBiomes">SZ_RadiantPlains</li>
+            <li MayRequire="Scurvyez.AlienBiomes">SZ_DeliriousDunes</li>
+            <li MayRequire="Scurvyez.AlienBiomes">SZ_CrystallineFlats</li>
         </allowedBiomes>
 
-        <numFFSystems>10</numFFSystems>
-        <particlesMaxCount>20</particlesMaxCount>
-        <particleEmissionRate>100</particleEmissionRate>
+        <!-- particleEmissionRate / particlesMaxCount = ~num active at any one moment -->
+        <particlesMaxCount>10000</particlesMaxCount> <!-- 25 -->
+        <particleEmissionRate>10000</particleEmissionRate> <!-- 315 -->
         <particleLifetime>0.1</particleLifetime>
         <particleSizeFactor>0.3</particleSizeFactor>
-        <particleVelocityFactor>0.075</particleVelocityFactor>
+        <particleVelocityFactor>0.0275</particleVelocityFactor>
         <startHour>19</startHour>
         <endHour>4</endHour>
-        <spawnableAreaCellFactor>13</spawnableAreaCellFactor>
-        <minEdgeDistance>20</minEdgeDistance>
 
         <!-- ParticleBuilder -->
         <shapeRandomDirectionAmount>0~360</shapeRandomDirectionAmount>
-        <noiseOctaveCount>3</noiseOctaveCount>
+        <noiseOctaveCount>1</noiseOctaveCount>
         <noiseFrequency>1.5</noiseFrequency>
-        <noisePositionAmount>0.25</noisePositionAmount>
-        <noiseStrength>10</noiseStrength>
+        <noisePositionAmount>1.75</noisePositionAmount>
+        <noiseStrength>15</noiseStrength>
     </FirefliesTwoO.FFConfigDef>
 
 </Defs>
