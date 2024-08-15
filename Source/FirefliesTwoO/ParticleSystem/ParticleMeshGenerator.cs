@@ -79,14 +79,14 @@ namespace FirefliesTwoO
             return _validCells;
         }
 
-        private void Shuffle<T>(List<T> list)
+        private void Shuffle<T>(List<T> validCells)
         {
-            int n = list.Count;
-            while (n > 1)
+            int cellsCount = validCells.Count;
+            while (cellsCount > 1)
             {
-                n--;
-                int k = _random.Next(n + 1);
-                (list[k], list[n]) = (list[n], list[k]);
+                cellsCount--;
+                int k = _random.Next(cellsCount + 1);
+                (validCells[k], validCells[cellsCount]) = (validCells[cellsCount], validCells[k]);
             }
         }
     }

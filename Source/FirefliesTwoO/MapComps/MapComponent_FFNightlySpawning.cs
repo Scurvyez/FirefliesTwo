@@ -50,7 +50,7 @@ namespace FirefliesTwoO
             ParticleSystem.MainModule main = _ffParticleSystem.main;
             main.simulationSpeed = (float)Find.TickManager.CurTimeSpeed * 1f;
             
-            //DEBUG_DrawSpawnableArea();
+            DEBUG_DrawSpawnableArea();
         }
 
         private bool IsActive
@@ -146,7 +146,7 @@ namespace FirefliesTwoO
             _validEmissionCells = _meshGenerator.GetValidCells();
             if (_validEmissionCells.Count > 0)
             {
-                GenDraw.DrawFieldEdges(_validEmissionCells, Color.yellow);
+                GenDraw.DrawFieldEdges(_validEmissionCells, Color.white);
             }
         }
 

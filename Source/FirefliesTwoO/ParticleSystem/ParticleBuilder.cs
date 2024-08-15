@@ -9,7 +9,7 @@ namespace FirefliesTwoO
         
         public static ParticleSystem CreateFireflyParticleSystem(Mesh spawnAreaMesh)
         {
-            GameObject fireflies = new("FFSystem");
+            GameObject fireflies = new("FireFlySystem");
 
             ParticleSystem particleSys = fireflies.GetComponent<ParticleSystem>() ?? fireflies.AddComponent<ParticleSystem>();
             ParticleSystemRenderer renderer = fireflies.GetComponent<ParticleSystemRenderer>() ?? fireflies.AddComponent<ParticleSystemRenderer>();
@@ -20,9 +20,9 @@ namespace FirefliesTwoO
             ConfigureNoiseModule(particleSys);
             ConfigureVelocityOverLifetimeModule(particleSys);
             ConfigureSizeOverLifetimeModule(particleSys, FFDefOf.FF_Config.particleSizeFactor);
-            ConfigureColorOverLifetimeModule(particleSys, Color.green);
+            ConfigureColorOverLifetimeModule(particleSys, DefaultFireflyColor);
             Material material = new(GetParticleShader());
-            ConfigureTrailModule(particleSys, material);
+            //ConfigureTrailModule(particleSys, material);
             ConfigureRenderer(particleSys, material, Assets.Firefly);
 
             return particleSys;
@@ -65,8 +65,8 @@ namespace FirefliesTwoO
             noiseModule.octaveCount = FFDefOf.FF_Config.noiseOctaveCount;
             noiseModule.frequency = FFDefOf.FF_Config.noiseFrequency;
             noiseModule.positionAmount = FFDefOf.FF_Config.noisePositionAmount;
-            noiseModule.damping = true;
             noiseModule.strength = FFDefOf.FF_Config.noiseStrength;
+            noiseModule.damping = true;
         }
 
         private static void ConfigureVelocityOverLifetimeModule(ParticleSystem particleSys)
