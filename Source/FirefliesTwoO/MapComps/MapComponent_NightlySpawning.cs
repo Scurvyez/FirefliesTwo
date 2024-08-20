@@ -101,9 +101,9 @@ namespace FirefliesTwoO
         private void DestroyParticleSystem()
         {
             if (_particleSystem == null) return;
-            string system = _particleSystem.gameObject.name;
+            //string system = _particleSystem.gameObject.name;
             Object.Destroy(_particleSystem.gameObject);
-            FFLog.Message($"{system} destroyed.");
+            //FFLog.Message($"{system} destroyed.");
         }
 
         private void RecalculateMesh()
