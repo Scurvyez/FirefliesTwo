@@ -67,7 +67,7 @@
     <Compile Include="FFMod.cs" />
     <Compile Include="MapComps\MapComponent_NightlySpawning.cs" />
     <Compile Include="ParticleSystem\Builder.cs" />
-    <Compile Include="ParticleSystem\ColorUtility.cs" />
+    <Compile Include="ParticleSystem\ColorManager.cs" />
     <Compile Include="ParticleSystem\MeshGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Defs\FFConfigDef.cs" />

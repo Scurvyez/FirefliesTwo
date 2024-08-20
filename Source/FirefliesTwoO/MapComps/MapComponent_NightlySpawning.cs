@@ -45,7 +45,7 @@ namespace FirefliesTwoO
                 if (!_particlesSpawned) return;
                 SetParticleSystemState(false);
                 RecalculateMesh();
-                RecalculateBaseColorGradient(_particleSystem);
+                ColorManager.RecalculateBaseColorGradient(_particleSystem);
             }
         }
 
@@ -88,7 +88,7 @@ namespace FirefliesTwoO
                 emission.rateOverTime = Mathf.FloorToInt(FFDefOf.FF_Config.particleEmissionRateCurve.Evaluate(map.Size.x));
             
                 RecalculateMesh();
-                RecalculateBaseColorGradient(_particleSystem);
+                ColorManager.RecalculateBaseColorGradient(_particleSystem);
                 RestoreParticleSystemState();
             }
             else
@@ -100,10 +100,10 @@ namespace FirefliesTwoO
 
         private void DestroyParticleSystem()
         {
-            if (_particleSystem != null)
-            {
-                Object.Destroy(_particleSystem.gameObject);
-            }
+            if (_particleSystem == null) return;
+            string system = _particleSystem.gameObject.name;
+            Object.Destroy(_particleSystem.gameObject);
+            FFLog.Message($"{system} destroyed.");
         }
 
         private void RecalculateMesh()
@@ -114,17 +114,6 @@ namespace FirefliesTwoO
             
             ParticleSystem.ShapeModule shapeModule = _particleSystem.shape;
             shapeModule.mesh = _spawnAreaMesh;
-
-            FFLog.Message($"Valid emission cell count is: MapComponent.{_validEmissionCells.Count}");
-        }
-
-        private void RecalculateBaseColorGradient(ParticleSystem particleSys)
-        {
-            ParticleSystem.MainModule mainModule = particleSys.main;
-            ParticleSystem.MinMaxGradient mainModuleStartColor = mainModule.startColor;
-            mainModuleStartColor.mode = ParticleSystemGradientMode.RandomColor;
-            float rand = Random.value;
-            mainModule.startColor = rand > 0.3f ? ColorUtility.CommonColors : rand > 0.1f ? ColorUtility.UncommonColors : ColorUtility.RareColors;
         }
         
         private bool IsPositionValid(Vector3 position)

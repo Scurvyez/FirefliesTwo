@@ -49,7 +49,6 @@ namespace FirefliesTwoO
             Shuffle(_validCells);
             int removalCount = _validCells.Count / 4;
             _validCells.RemoveRange(removalCount, _validCells.Count - removalCount);
-            FFLog.Message($"Remaining valid emission cell count is: MeshGenerator.{_validCells.Count}");
 
             foreach (IntVec3 cell in _validCells)
             {

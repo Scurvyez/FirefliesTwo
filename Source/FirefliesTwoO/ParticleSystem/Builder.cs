@@ -8,8 +8,6 @@ namespace FirefliesTwoO
         public static ParticleSystem CreateFireflyParticleSystem(int mapID)
         {
             GameObject fireflies = new($"firefly_system_{Mathf.Abs(mapID)}");
-            FFLog.Message($"System name: {fireflies}");
-            
             ParticleSystem particleSys = fireflies.GetComponent<ParticleSystem>() ?? fireflies.AddComponent<ParticleSystem>();
             ParticleSystemRenderer renderer = fireflies.GetComponent<ParticleSystemRenderer>() ?? fireflies.AddComponent<ParticleSystemRenderer>();
 
@@ -138,8 +136,8 @@ namespace FirefliesTwoO
             Shader shader = ShaderDatabase.TransparentPostLight;
             
             if (shader != null) return shader;
-            FFLog.Warning("Shader 'Custom/TransparentPostLight' not found. Using `Standard` shader.");
-            shader = Shader.Find("Standard");
+            FFLog.Warning("Shader 'Custom/TransparentPostLight' not found. Using `Transparent` shader.");
+            shader = ShaderDatabase.Transparent;
             
             return shader;
         }
