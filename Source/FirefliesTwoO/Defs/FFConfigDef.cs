@@ -8,8 +8,10 @@ namespace FirefliesTwoO
     {
         // MapComponent_FFNightlySpawning
         public List<BiomeDef> allowedBiomes;
-        public int particlesMaxCount = 1;
-        public float particleEmissionRate = 1f;
+        
+        public SimpleCurve particlesMaxCountCurve;
+        public SimpleCurve particleEmissionRateCurve;
+        
         public float particleLifetime = 1f;
         public float particleSizeFactor = 1f;
         public float startHour = 19f;
