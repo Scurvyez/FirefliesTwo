@@ -16,6 +16,8 @@ namespace FirefliesTwoO
         private float _simulationSpeed;
         private int _mapID;
         
+        private static bool _drawMeshNow => MeshOverlayDrawer.DrawFireflySpawnMesh;
+        
         public MapComponent_NightlySpawning(Map map) : base(map)
         {
             // Run initialization via a LongEventHandler to combat intermittent crashing
@@ -25,7 +27,7 @@ namespace FirefliesTwoO
         public override void MapRemoved()
         {
             base.MapRemoved();
-            LongEventHandler.ExecuteWhenFinished(DestroyParticleSystem);
+            State.DestroyParticleSystem(_particleSystem);
         }
 
         public override void MapComponentTick()
@@ -33,7 +35,7 @@ namespace FirefliesTwoO
             base.MapComponentTick();
             
             if (_particleSystem == null) return;
-            if (IsActive)
+            if (State.IsActive(map))
             {
                 if (!_particlesSpawned)
                 {
@@ -56,21 +58,13 @@ namespace FirefliesTwoO
                 ParticleSystem.MainModule main = _particleSystem.main;
                 main.simulationSpeed = (float)Find.TickManager.CurTimeSpeed * 1f;
             }
-            //DEBUG_DrawSpawnableArea();
-        }
 
-        private bool IsActive
-        {
-            get
+            if (_drawMeshNow)
             {
-                float currentHour = GenLocalDate.DayPercent(map) * 24f;
-                bool active = (FFDefOf.FF_Config.startHour <= FFDefOf.FF_Config.endHour) ?
-                    (currentHour >= FFDefOf.FF_Config.startHour && currentHour < FFDefOf.FF_Config.endHour) :
-                    (currentHour >= FFDefOf.FF_Config.startHour || currentHour < FFDefOf.FF_Config.endHour);
-                return active;
+                MeshOverlayDrawer.DrawMeshArea(_validEmissionCells);
             }
         }
-
+        
         private void InitializeMapSystems()
         {
             if (_particleSystem != null) return;
@@ -98,14 +92,6 @@ namespace FirefliesTwoO
             }
         }
 
-        private void DestroyParticleSystem()
-        {
-            if (_particleSystem == null) return;
-            //string system = _particleSystem.gameObject.name;
-            Object.Destroy(_particleSystem.gameObject);
-            //FFLog.Message($"{system} destroyed.");
-        }
-
         private void RecalculateMesh()
         {
             if (_particleSystem == null) return;
@@ -115,17 +101,8 @@ namespace FirefliesTwoO
             ParticleSystem.ShapeModule shapeModule = _particleSystem.shape;
             shapeModule.mesh = _spawnAreaMesh;
         }
-        
-        private bool IsPositionValid(Vector3 position)
-        {
-            IntVec3 intVecPosition = position.ToIntVec3();
-            return intVecPosition.ToVector3().InBounds(map)
-                   && map.terrainGrid.TerrainAt(intVecPosition).IsSoil
-                   && !intVecPosition.Roofed(map)
-                   && intVecPosition.Standable(map)
-                   && !intVecPosition.IsPolluted(map);
-        }
 
+        // move to State
         private void RestoreParticleSystemState()
         {
             if (_particleSystem == null) return;
@@ -143,6 +120,7 @@ namespace FirefliesTwoO
             mainModule.simulationSpeed = _simulationSpeed;
         }
 
+        // move to State
         private void SetParticleSystemState(bool isActive)
         {
             if (_particleSystem == null) return;
@@ -159,13 +137,15 @@ namespace FirefliesTwoO
             _particlesSpawned = isActive;
             _isSystemActive = isActive;
         }
-
-        private void DEBUG_DrawSpawnableArea()
+        
+        private bool IsPositionValid(Vector3 position)
         {
-            if (_validEmissionCells.Count > 0)
-            {
-                GenDraw.DrawFieldEdges(_validEmissionCells, Color.white);
-            }
+            IntVec3 intVecPosition = position.ToIntVec3();
+            return intVecPosition.ToVector3().InBounds(map)
+                   && map.terrainGrid.TerrainAt(intVecPosition).IsSoil
+                   && !intVecPosition.Roofed(map)
+                   && intVecPosition.Standable(map)
+                   && !intVecPosition.IsPolluted(map);
         }
 
         public override void ExposeData()

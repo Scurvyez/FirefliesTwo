@@ -64,11 +64,13 @@
   <ItemGroup>
     <Compile Include="AssetManagement\Textures.cs" />
     <Compile Include="Debugging\FFLog.cs" />
+    <Compile Include="Debugging\MeshOverlayDrawer.cs" />
     <Compile Include="FFMod.cs" />
     <Compile Include="MapComps\MapComponent_NightlySpawning.cs" />
     <Compile Include="ParticleSystem\Builder.cs" />
     <Compile Include="ParticleSystem\ColorManager.cs" />
     <Compile Include="ParticleSystem\MeshGenerator.cs" />
+    <Compile Include="ParticleSystem\State.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Defs\FFConfigDef.cs" />
     <Compile Include="Defs\FFDefOf.cs" />
