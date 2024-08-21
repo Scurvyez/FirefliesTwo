@@ -20,31 +20,41 @@
             <li MayRequire="Scurvyez.AlienBiomes">SZ_CrystallineFlats</li>
         </allowedBiomes>
 
-        <!-- particlesMaxCountCurve.y = particlesMaxCountCurve.x * (1/2) -->
+        <!--
+        x = mapSize.x
+
+        particlesMaxCountCurve.y =
+        POW(particlesMaxCountCurve.x * (1/2) * (particlesMaxCountCurve.x * 0.01), 0.95)
+        -->
         <particlesMaxCountCurve>
             <points>
-                <li>(24, 12)</li>
-                <li>(49, 25)</li>
-                <li>(74, 37)</li>
-                <li>(99, 50)</li>
-                <li>(149, 75)</li>
-                <li>(249, 125)</li>
-                <li>(349, 175)</li>
-                <li>(449, 225)</li>
+                <li>(24, 3)</li>
+                <li>(49, 11)</li>
+                <li>(74, 23)</li>
+                <li>(99, 40)</li>
+                <li>(149, 88)</li>
+                <li>(249, 233)</li>
+                <li>(349, 442)</li>
+                <li>(449, 713)</li>
             </points>
         </particlesMaxCountCurve>
 
-        <!-- particleEmissionRateCurve.y = particlesMaxCountCurve.y * (1/4) -->
+        <!--
+        x = mapSize.x
+
+        particleEmissionRateCurve.y =
+        particlesMaxCountCurve.y * (1/4)
+        -->
         <particleEmissionRateCurve>
             <points>
-                <li>(24, 4)</li>
-                <li>(49, 6)</li>
-                <li>(74, 9)</li>
-                <li>(99, 12)</li>
-                <li>(149, 19)</li>
-                <li>(249, 31)</li>
-                <li>(349, 44)</li>
-                <li>(449, 56)</li>
+                <li>(24, 1)</li>
+                <li>(49, 3)</li>
+                <li>(74, 6)</li>
+                <li>(99, 10)</li>
+                <li>(149, 22)</li>
+                <li>(249, 58)</li>
+                <li>(349, 110)</li>
+                <li>(449, 178)</li>
             </points>
         </particleEmissionRateCurve>
 

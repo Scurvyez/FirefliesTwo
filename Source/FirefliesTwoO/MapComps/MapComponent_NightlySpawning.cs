@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -27,7 +26,7 @@ namespace FirefliesTwoO
         public override void MapRemoved()
         {
             base.MapRemoved();
-            State.DestroyParticleSystem(_particleSystem);
+            StateHandler.DestroyParticleSystem(_particleSystem);
         }
 
         public override void MapComponentTick()
@@ -35,17 +34,19 @@ namespace FirefliesTwoO
             base.MapComponentTick();
             
             if (_particleSystem == null) return;
-            if (State.IsActive(map))
+            if (StateHandler.IsActive(map))
             {
-                if (!_particlesSpawned)
-                {
-                    SetParticleSystemState(true);
-                }
+                if (_particlesSpawned) return;
+                StateHandler.SetParticleSystemState(_particleSystem, true);
+                _particlesSpawned = true;
+                _isSystemActive = true;
             }
             else
             {
                 if (!_particlesSpawned) return;
-                SetParticleSystemState(false);
+                StateHandler.SetParticleSystemState(_particleSystem, false);
+                _particlesSpawned = false;
+                _isSystemActive = false;
                 RecalculateMesh();
                 ColorManager.RecalculateBaseColorGradient(_particleSystem);
             }
@@ -83,7 +84,7 @@ namespace FirefliesTwoO
             
                 RecalculateMesh();
                 ColorManager.RecalculateBaseColorGradient(_particleSystem);
-                RestoreParticleSystemState();
+                StateHandler.RestoreParticleSystemState(_particleSystem, _isSystemActive, _simulationSpeed);
             }
             else
             {
@@ -102,42 +103,6 @@ namespace FirefliesTwoO
             shapeModule.mesh = _spawnAreaMesh;
         }
 
-        // move to State
-        private void RestoreParticleSystemState()
-        {
-            if (_particleSystem == null) return;
-            _particleSystem.gameObject.SetActive(_isSystemActive);
-
-            if (_isSystemActive)
-            {
-                _particleSystem.Play();
-            }
-            else
-            {
-                _particleSystem.Stop();
-            }
-            ParticleSystem.MainModule mainModule = _particleSystem.main;
-            mainModule.simulationSpeed = _simulationSpeed;
-        }
-
-        // move to State
-        private void SetParticleSystemState(bool isActive)
-        {
-            if (_particleSystem == null) return;
-            if (isActive)
-            {
-                _particleSystem.gameObject.SetActive(true);
-                _particleSystem.Play();
-            }
-            else
-            {
-                _particleSystem.gameObject.SetActive(false);
-                _particleSystem.Stop();
-            }
-            _particlesSpawned = isActive;
-            _isSystemActive = isActive;
-        }
-        
         private bool IsPositionValid(Vector3 position)
         {
             IntVec3 intVecPosition = position.ToIntVec3();

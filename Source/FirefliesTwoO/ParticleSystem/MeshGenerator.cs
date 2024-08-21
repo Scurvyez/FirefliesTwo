@@ -11,7 +11,6 @@ namespace FirefliesTwoO
         private float _altitudeLayer;
         private readonly Func<Vector3, bool> _isPositionValid;
         private readonly List<IntVec3> _validCells;
-
         private readonly System.Random _random;
 
         public List<IntVec3> FinalValidCells => _validCells;
