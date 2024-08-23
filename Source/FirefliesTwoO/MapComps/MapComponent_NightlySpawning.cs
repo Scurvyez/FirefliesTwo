@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -19,6 +20,7 @@ namespace FirefliesTwoO
         
         public MapComponent_NightlySpawning(Map map) : base(map)
         {
+            if (!map.IsPlayerHome) return;
             // Run initialization via a LongEventHandler to combat intermittent crashing
             LongEventHandler.ExecuteWhenFinished(InitializeMapSystems);
         }
@@ -26,20 +28,31 @@ namespace FirefliesTwoO
         public override void MapRemoved()
         {
             base.MapRemoved();
+            if (!map.IsPlayerHome) return;
             StateHandler.DestroyParticleSystem(_particleSystem);
         }
 
         public override void MapComponentTick()
         {
             base.MapComponentTick();
-            
+
+            if (!map.IsPlayerHome) return;
             if (_particleSystem == null) return;
             if (StateHandler.IsActive(map))
             {
-                if (_particlesSpawned) return;
-                StateHandler.SetParticleSystemState(_particleSystem, true);
-                _particlesSpawned = true;
-                _isSystemActive = true;
+                if (!_particlesSpawned)
+                {
+                    StateHandler.SetParticleSystemState(_particleSystem, true);
+                    _particlesSpawned = true;
+                    _isSystemActive = true;
+                }
+                else
+                {
+                    if (map.weatherManager.curWeather == WeatherDefOf.Clear) return;
+                    StateHandler.SetParticleSystemState(_particleSystem, false);
+                    _particlesSpawned = false;
+                    _isSystemActive = false;
+                }
             }
             else
             {
@@ -54,6 +67,7 @@ namespace FirefliesTwoO
 
         public override void MapComponentUpdate()
         {
+            if (!map.IsPlayerHome) return;
             if (_particleSystem != null)
             {
                 ParticleSystem.MainModule main = _particleSystem.main;
