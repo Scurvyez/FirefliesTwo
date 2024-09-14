@@ -16,6 +16,10 @@ namespace FirefliesTwoO
         private static readonly ParticleSystem.MinMaxGradient RareColors = new (GreenEmission, OrangeEmission);
         private static readonly ParticleSystem.MinMaxGradient UniqueColors = new (BlueEmission, PurpleEmission);
         
+        private static string _lastSelectedGradientName;
+
+        public static string LastSelectedGradientName => _lastSelectedGradientName;
+        
         public static void RecalculateBaseColorGradient(ParticleSystem particleSys)
         {
             ParticleSystem.MainModule mainModule = particleSys.main;
@@ -29,6 +33,14 @@ namespace FirefliesTwoO
                 > 0.1f => UncommonColors,
                 > 0.05f => RareColors,
                 _ => UniqueColors
+            };
+            
+            _lastSelectedGradientName = rand switch
+            {
+                > 0.3f => "CommonColors",
+                > 0.1f => "UncommonColors",
+                > 0.05f => "RareColors",
+                _ => "UniqueColors"
             };
         }
     }

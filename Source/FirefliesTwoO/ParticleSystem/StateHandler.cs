@@ -20,7 +20,7 @@ namespace FirefliesTwoO
             if (particleSystem == null) return;
             //string system = _particleSystem.gameObject.name;
             Object.Destroy(particleSystem.gameObject);
-            //FFLog.Message($"{system} destroyed.");
+            //FFLog.Message($"{particleSystem.gameObject.name} destroyed.");
         }
         
         public static void RestoreParticleSystemState(ParticleSystem particleSystem, bool isSystemActive, float simulationSpeed)

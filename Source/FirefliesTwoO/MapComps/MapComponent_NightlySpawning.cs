@@ -20,7 +20,6 @@ namespace FirefliesTwoO
         
         public MapComponent_NightlySpawning(Map map) : base(map)
         {
-            if (!map.IsPlayerHome) return;
             // Run initialization via a LongEventHandler to combat intermittent crashing
             LongEventHandler.ExecuteWhenFinished(InitializeMapSystems);
         }
@@ -28,15 +27,13 @@ namespace FirefliesTwoO
         public override void MapRemoved()
         {
             base.MapRemoved();
-            if (!map.IsPlayerHome) return;
             StateHandler.DestroyParticleSystem(_particleSystem);
         }
 
         public override void MapComponentTick()
         {
             base.MapComponentTick();
-
-            if (!map.IsPlayerHome) return;
+            
             if (_particleSystem == null) return;
             if (StateHandler.IsActive(map))
             {
@@ -91,6 +88,12 @@ namespace FirefliesTwoO
                 _particleSystem = Builder.CreateFireflyParticleSystem(_mapID);
                 _particleSystem.transform.position = Vector3.zero;
 
+                // Ensure the RotationHandler is added to the particle system's GameObject
+                if (_particleSystem.gameObject.GetComponent<RotationHandler>() == null)
+                {
+                    _particleSystem.gameObject.AddComponent<RotationHandler>();
+                }
+                
                 ParticleSystem.MainModule main = _particleSystem.main;
                 ParticleSystem.EmissionModule emission = _particleSystem.emission;
                 main.maxParticles = Mathf.FloorToInt(FFDefOf.FF_Config.particlesMaxCountCurve.Evaluate(map.Size.x));

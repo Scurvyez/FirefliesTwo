@@ -8,6 +8,7 @@ namespace FirefliesTwoO
         public static ParticleSystem CreateFireflyParticleSystem(int mapID)
         {
             GameObject fireflies = new($"firefly_system_{Mathf.Abs(mapID)}");
+            //FFLog.Message($"New particle system created with name: {fireflies}.");
             ParticleSystem particleSys = fireflies.GetComponent<ParticleSystem>() ?? fireflies.AddComponent<ParticleSystem>();
             ParticleSystemRenderer renderer = fireflies.GetComponent<ParticleSystemRenderer>() ?? fireflies.AddComponent<ParticleSystemRenderer>();
 
@@ -40,6 +41,7 @@ namespace FirefliesTwoO
         {
             ParticleSystem.ShapeModule shapeModule = particleSys.shape;
             shapeModule.enabled = true;
+            //shapeModule.alignToDirection = true;
             shapeModule.shapeType = ParticleSystemShapeType.Mesh;
             shapeModule.meshShapeType = ParticleSystemMeshShapeType.Vertex;
             shapeModule.randomDirectionAmount = FFDefOf.FF_Config.shapeRandomDirectionAmount.RandomInRange;
@@ -100,12 +102,12 @@ namespace FirefliesTwoO
                     new GradientColorKey(color, 1f)
                 ],
                 [
-                    new GradientAlphaKey(0f, 0f),
-                    new GradientAlphaKey(0f, 0.4f),
-                    new GradientAlphaKey(1f, 0.45f),
-                    new GradientAlphaKey(1f, 0.55f),
-                    new GradientAlphaKey(0f, 0.6f),
-                    new GradientAlphaKey(0f, 1f)
+                    new GradientAlphaKey(1f, 0f), // change back to (1f, 0f)
+                    //new GradientAlphaKey(0f, 0.4f),
+                    //new GradientAlphaKey(1f, 0.45f),
+                    //new GradientAlphaKey(1f, 0.55f),
+                    //new GradientAlphaKey(0f, 0.6f),
+                    new GradientAlphaKey(1f, 1f)
                 ]
             );
             colorOverLifetimeModule.color = new ParticleSystem.MinMaxGradient(gradient);
@@ -115,6 +117,8 @@ namespace FirefliesTwoO
         {
             ParticleSystemRenderer renderer = particleSys.GetComponent<ParticleSystemRenderer>();
             renderer.material = material;
+            renderer.renderMode = ParticleSystemRenderMode.Billboard;
+            renderer.alignment = ParticleSystemRenderSpace.Velocity;
             material.SetTexture(Shader.PropertyToID("_MainTex"), fireflyTexture);
             particleSys.Stop();
         }
