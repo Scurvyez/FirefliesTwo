@@ -88,12 +88,6 @@ namespace FirefliesTwoO
                 _particleSystem = Builder.CreateFireflyParticleSystem(_mapID);
                 _particleSystem.transform.position = Vector3.zero;
 
-                // Ensure the RotationHandler is added to the particle system's GameObject
-                if (_particleSystem.gameObject.GetComponent<RotationHandler>() == null)
-                {
-                    _particleSystem.gameObject.AddComponent<RotationHandler>();
-                }
-                
                 ParticleSystem.MainModule main = _particleSystem.main;
                 ParticleSystem.EmissionModule emission = _particleSystem.emission;
                 main.maxParticles = Mathf.FloorToInt(FFDefOf.FF_Config.particlesMaxCountCurve.Evaluate(map.Size.x));
@@ -101,6 +95,7 @@ namespace FirefliesTwoO
             
                 RecalculateMesh();
                 ColorManager.RecalculateBaseColorGradient(_particleSystem);
+                ColorManager.AmplifyParticleShaderAlpha(_particleSystem, 2.5f);
                 StateHandler.RestoreParticleSystemState(_particleSystem, _isSystemActive, _simulationSpeed);
             }
             else

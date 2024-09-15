@@ -70,7 +70,6 @@
     <Compile Include="ParticleSystem\Builder.cs" />
     <Compile Include="ParticleSystem\ColorManager.cs" />
     <Compile Include="ParticleSystem\MeshGenerator.cs" />
-    <Compile Include="ParticleSystem\RotationHandler.cs" />
     <Compile Include="ParticleSystem\StateHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Defs\FFConfigDef.cs" />

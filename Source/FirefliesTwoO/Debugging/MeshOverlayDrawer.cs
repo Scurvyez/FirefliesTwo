@@ -14,7 +14,7 @@ namespace FirefliesTwoO
         {
             if (cells.Count > 0)
             {
-                GenDraw.DrawFieldEdges(cells, Color.white);
+                GenDraw.DrawFieldEdges(cells, ColorManager.RedEmission);
             }
         }
     }

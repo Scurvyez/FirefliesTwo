@@ -31,17 +31,16 @@ namespace FirefliesTwoO
             ParticleSystem.MainModule mainModule = particleSys.main;
             mainModule.simulationSpace = ParticleSystemSimulationSpace.World;
             mainModule.loop = true;
-            mainModule.startLifetime = particleLifetime;
-            mainModule.startSize = 1f;
-            mainModule.startSpeed = 1f;
             mainModule.duration = float.PositiveInfinity;
+            mainModule.startSize = 1f;
+            mainModule.startLifetime = new ParticleSystem.MinMaxCurve(1f, 7f);
+            mainModule.startSpeed = new ParticleSystem.MinMaxCurve(0.01f, 10f);
         }
 
         private static void ConfigureShapeModule(ParticleSystem particleSys)
         {
             ParticleSystem.ShapeModule shapeModule = particleSys.shape;
             shapeModule.enabled = true;
-            //shapeModule.alignToDirection = true;
             shapeModule.shapeType = ParticleSystemShapeType.Mesh;
             shapeModule.meshShapeType = ParticleSystemMeshShapeType.Vertex;
             shapeModule.randomDirectionAmount = FFDefOf.FF_Config.shapeRandomDirectionAmount.RandomInRange;
@@ -74,7 +73,7 @@ namespace FirefliesTwoO
             curve.AddKey(0.0f, 1f);
             curve.AddKey(1.0f, 1f);
             
-            velocityModule.speedModifier = new ParticleSystem.MinMaxCurve(0.1f, curve);
+            velocityModule.speedModifier = new ParticleSystem.MinMaxCurve(0.05f, curve);
         }
 
         private static void ConfigureSizeOverLifetimeModule(ParticleSystem particleSys, float particleSizeFactor)
@@ -102,12 +101,12 @@ namespace FirefliesTwoO
                     new GradientColorKey(color, 1f)
                 ],
                 [
-                    new GradientAlphaKey(1f, 0f), // change back to (1f, 0f)
-                    //new GradientAlphaKey(0f, 0.4f),
-                    //new GradientAlphaKey(1f, 0.45f),
-                    //new GradientAlphaKey(1f, 0.55f),
-                    //new GradientAlphaKey(0f, 0.6f),
-                    new GradientAlphaKey(1f, 1f)
+                    new GradientAlphaKey(0f, 0f),
+                    new GradientAlphaKey(0f, 0.3f),
+                    new GradientAlphaKey(1f, 0.45f),
+                    new GradientAlphaKey(1f, 0.55f),
+                    new GradientAlphaKey(0f, 0.7f),
+                    new GradientAlphaKey(0f, 1f)
                 ]
             );
             colorOverLifetimeModule.color = new ParticleSystem.MinMaxGradient(gradient);
@@ -117,8 +116,6 @@ namespace FirefliesTwoO
         {
             ParticleSystemRenderer renderer = particleSys.GetComponent<ParticleSystemRenderer>();
             renderer.material = material;
-            renderer.renderMode = ParticleSystemRenderMode.Billboard;
-            renderer.alignment = ParticleSystemRenderSpace.Velocity;
             material.SetTexture(Shader.PropertyToID("_MainTex"), fireflyTexture);
             particleSys.Stop();
         }
@@ -132,7 +129,7 @@ namespace FirefliesTwoO
             trailModule.dieWithParticles = true;
             ParticleSystemRenderer pSR = particleSys.GetComponent<ParticleSystemRenderer>();
             pSR.trailMaterial = material;
-            pSR.trailMaterial.SetColor(Shader.PropertyToID("_Color"), Color.green);
+            pSR.trailMaterial.SetColor(Shader.PropertyToID("_Color"), ColorManager.PurpleEmission);
         }
         
         private static Shader GetParticleShader()

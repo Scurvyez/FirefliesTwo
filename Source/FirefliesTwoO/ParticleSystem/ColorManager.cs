@@ -4,12 +4,12 @@ namespace FirefliesTwoO
 {
     public static class ColorManager
     {
-        private static readonly Color RedEmission = new (1.0f, 0.4f, 0.4f);
-        private static readonly Color GreenEmission = new (0.4f, 1.0f, 0.4f);
-        private static readonly Color YellowEmission = new (1.0f, 1.0f, 0.4f);
-        private static readonly Color OrangeEmission = new (1.0f, 0.6f, 0.2f);
-        private static readonly Color PurpleEmission = new (0.8f, 0.6f, 1.0f);
-        private static readonly Color BlueEmission = new (0.6f, 0.8f, 1.0f);
+        public static readonly Color RedEmission = new (1.0f, 0.4f, 0.4f);
+        public static readonly Color GreenEmission = new (0.4f, 1.0f, 0.4f);
+        public static readonly Color YellowEmission = new (1.0f, 1.0f, 0.4f);
+        public static readonly Color OrangeEmission = new (1.0f, 0.6f, 0.2f);
+        public static readonly Color PurpleEmission = new (0.8f, 0.6f, 1.0f);
+        public static readonly Color BlueEmission = new (0.6f, 0.8f, 1.0f);
 
         private static readonly ParticleSystem.MinMaxGradient CommonColors = new (GreenEmission, YellowEmission);
         private static readonly ParticleSystem.MinMaxGradient UncommonColors = new (BlueEmission, RedEmission);
@@ -42,6 +42,21 @@ namespace FirefliesTwoO
                 > 0.05f => "RareColors",
                 _ => "UniqueColors"
             };
+        }
+
+        public static void AmplifyParticleShaderAlpha(ParticleSystem particleSys, float alphaFactor)
+        {
+            Renderer particleRenderer = particleSys.GetComponent<Renderer>();
+            if (particleRenderer != null && particleRenderer.material.HasProperty("_Color"))
+            {
+                Color currentColor = particleRenderer.material.GetColor(Shader.PropertyToID("_Color"));
+                currentColor.a *= alphaFactor;
+                particleRenderer.material.SetColor(Shader.PropertyToID("_Color"), currentColor);
+            }
+            else
+            {
+                FFLog.Message("No _Color property found on the particle material!");
+            }
         }
     }
 }

@@ -65,9 +65,9 @@
 
         <!-- ParticleBuilder -->
         <shapeRandomDirectionAmount>0~360</shapeRandomDirectionAmount>
-        <noiseOctaveCount>1</noiseOctaveCount>
+        <noiseOctaveCount>2</noiseOctaveCount>
         <noiseFrequency>1.5</noiseFrequency>
-        <noisePositionAmount>0.33</noisePositionAmount>
+        <noisePositionAmount>0.5</noisePositionAmount>
         <noiseStrength>15</noiseStrength>
     </FirefliesTwoO.FFConfigDef>
 
