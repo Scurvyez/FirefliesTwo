@@ -31,10 +31,10 @@ namespace FirefliesTwoO
             ParticleSystem.MainModule mainModule = particleSys.main;
             mainModule.simulationSpace = ParticleSystemSimulationSpace.World;
             mainModule.loop = true;
-            mainModule.duration = float.PositiveInfinity;
+            mainModule.duration = Rand.Value;
             mainModule.startSize = 1f;
-            mainModule.startLifetime = new ParticleSystem.MinMaxCurve(1f, 7f);
-            mainModule.startSpeed = new ParticleSystem.MinMaxCurve(0.01f, 10f);
+            mainModule.startLifetime = new ParticleSystem.MinMaxCurve (1, LifeTimeSetter.GetLifetimeCurve());
+            mainModule.startSpeed = new ParticleSystem.MinMaxCurve(1f, Random.Range(0.01f, 20f));
         }
 
         private static void ConfigureShapeModule(ParticleSystem particleSys)
@@ -56,7 +56,7 @@ namespace FirefliesTwoO
         {
             ParticleSystem.NoiseModule noiseModule = particleSys.noise;
             noiseModule.enabled = true;
-            noiseModule.quality = ParticleSystemNoiseQuality.Medium;
+            noiseModule.quality = ParticleSystemNoiseQuality.High;
             noiseModule.octaveCount = FFDefOf.FF_Config.noiseOctaveCount;
             noiseModule.frequency = FFDefOf.FF_Config.noiseFrequency;
             noiseModule.positionAmount = FFDefOf.FF_Config.noisePositionAmount;
@@ -102,10 +102,10 @@ namespace FirefliesTwoO
                 ],
                 [
                     new GradientAlphaKey(0f, 0f),
-                    new GradientAlphaKey(0f, 0.3f),
+                    new GradientAlphaKey(0f, 0.05f),
                     new GradientAlphaKey(1f, 0.45f),
                     new GradientAlphaKey(1f, 0.55f),
-                    new GradientAlphaKey(0f, 0.7f),
+                    new GradientAlphaKey(0f, 0.95f),
                     new GradientAlphaKey(0f, 1f)
                 ]
             );

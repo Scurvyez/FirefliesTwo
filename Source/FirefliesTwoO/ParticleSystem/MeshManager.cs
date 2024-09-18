@@ -5,7 +5,7 @@ using Verse;
 
 namespace FirefliesTwoO
 {
-    public class MeshGenerator
+    public class MeshManager
     {
         private readonly Map _map;
         private float _altitudeLayer;
@@ -15,7 +15,7 @@ namespace FirefliesTwoO
 
         public List<IntVec3> FinalValidCells => _validCells;
         
-        public MeshGenerator(Map map, Func<Vector3, bool> isPositionValid)
+        public MeshManager(Map map, Func<Vector3, bool> isPositionValid)
         {
             _map = map;
             _altitudeLayer = AltitudeLayer.VisEffects.AltitudeFor();

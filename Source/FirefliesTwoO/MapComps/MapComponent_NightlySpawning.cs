@@ -8,7 +8,7 @@ namespace FirefliesTwoO
     public class MapComponent_NightlySpawning : MapComponent
     {
         private ParticleSystem _particleSystem;
-        private MeshGenerator _meshGenerator;
+        private MeshManager _meshManager;
         private List<IntVec3> _validEmissionCells;
         private Mesh _spawnAreaMesh;
         private bool _particlesSpawned;
@@ -33,8 +33,13 @@ namespace FirefliesTwoO
         public override void MapComponentTick()
         {
             base.MapComponentTick();
-            
             if (_particleSystem == null) return;
+            
+            if (_particleSystem.particleCount > 0)
+            {
+                ParticleModuleDebugger.LogParticleLifetimes(_particleSystem);
+            }
+            
             if (StateHandler.IsActive(map))
             {
                 if (!_particlesSpawned)
@@ -84,7 +89,7 @@ namespace FirefliesTwoO
             {
                 _mapID = map.GetHashCode();
                 _spawnAreaMesh = new Mesh();
-                _meshGenerator = new MeshGenerator(map, IsPositionValid);
+                _meshManager = new MeshManager(map, IsPositionValid);
                 _particleSystem = Builder.CreateFireflyParticleSystem(_mapID);
                 _particleSystem.transform.position = Vector3.zero;
 
@@ -108,8 +113,8 @@ namespace FirefliesTwoO
         private void RecalculateMesh()
         {
             if (_particleSystem == null) return;
-            _meshGenerator.UpdateMeshFromValidCells(_spawnAreaMesh);
-            _validEmissionCells = _meshGenerator.FinalValidCells;
+            _meshManager.UpdateMeshFromValidCells(_spawnAreaMesh);
+            _validEmissionCells = _meshManager.FinalValidCells;
             
             ParticleSystem.ShapeModule shapeModule = _particleSystem.shape;
             shapeModule.mesh = _spawnAreaMesh;
