@@ -20,25 +20,6 @@
             <li MayRequire="Scurvyez.AlienBiomes">SZ_CrystallineFlats</li>
         </allowedBiomes>
 
-        <!--
-        x = mapSize.x
-
-        particleEmissionRateCurve.y =
-        particlesMaxCountCurve.y * (1/4)
-        -->
-        <particleEmissionRateCurve>
-            <points>
-                <li>(24, 1)</li>
-                <li>(49, 3)</li>
-                <li>(74, 6)</li>
-                <li>(99, 10)</li>
-                <li>(149, 22)</li>
-                <li>(249, 58)</li>
-                <li>(349, 110)</li>
-                <li>(449, 178)</li>
-            </points>
-        </particleEmissionRateCurve>
-
         <particleSizeFactor>0.3</particleSizeFactor>
         <startHour>19</startHour>
         <endHour>4</endHour>
