@@ -65,7 +65,7 @@
     <Compile Include="AssetManagement\Textures.cs" />
     <Compile Include="Debugging\FFLog.cs" />
     <Compile Include="Debugging\MeshOverlayDrawer.cs" />
-    <Compile Include="Debugging\ParticleModuleDebugger.cs" />
+    <Compile Include="Debugging\ModuleDebugger.cs" />
     <Compile Include="FFMod.cs" />
     <Compile Include="MapComps\MapComponent_NightlySpawning.cs" />
     <Compile Include="ParticleSystem\Builder.cs" />

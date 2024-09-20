@@ -4,47 +4,34 @@ namespace FirefliesTwoO
 {
     public static class ColorManager
     {
-        public static readonly Color RedEmission = new (1.0f, 0.4f, 0.4f);
         public static readonly Color GreenEmission = new (0.4f, 1.0f, 0.4f);
         public static readonly Color YellowEmission = new (1.0f, 1.0f, 0.4f);
         public static readonly Color OrangeEmission = new (1.0f, 0.6f, 0.2f);
-        public static readonly Color PurpleEmission = new (0.8f, 0.6f, 1.0f);
+        public static readonly Color RedEmission = new (1.0f, 0.4f, 0.4f);
         public static readonly Color BlueEmission = new (0.6f, 0.8f, 1.0f);
+        public static readonly Color PurpleEmission = new (0.8f, 0.6f, 1.0f);
 
-        private static readonly ParticleSystem.MinMaxGradient CommonColors = new (GreenEmission, YellowEmission);
-        private static readonly ParticleSystem.MinMaxGradient UncommonColors = new (BlueEmission, RedEmission);
-        private static readonly ParticleSystem.MinMaxGradient RareColors = new (GreenEmission, OrangeEmission);
-        private static readonly ParticleSystem.MinMaxGradient UniqueColors = new (BlueEmission, PurpleEmission);
+        private static readonly Gradient colorGradient = new ()
+        {
+            colorKeys =
+            [
+                new GradientColorKey(GreenEmission, 0.5f),
+                new GradientColorKey(YellowEmission, 0.8f),
+                new GradientColorKey(OrangeEmission, 0.9f),
+                new GradientColorKey(RedEmission, 0.95f),
+                new GradientColorKey(BlueEmission, 0.975f),
+                new GradientColorKey(PurpleEmission, 1f)
+            ]
+        };
         
-        private static string _lastSelectedGradientName;
-
-        public static string LastSelectedGradientName => _lastSelectedGradientName;
-        
-        public static void RecalculateBaseColorGradient(ParticleSystem particleSys)
+        public static void GetBaseColorGradient(ParticleSystem particleSys)
         {
             ParticleSystem.MainModule mainModule = particleSys.main;
-            ParticleSystem.MinMaxGradient mainModuleStartColor = mainModule.startColor;
-            mainModuleStartColor.mode = ParticleSystemGradientMode.RandomColor;
-            float rand = Random.value;
-            
-            mainModule.startColor = rand switch
-            {
-                > 0.3f => CommonColors,
-                > 0.1f => UncommonColors,
-                > 0.05f => RareColors,
-                _ => UniqueColors
-            };
-            
-            _lastSelectedGradientName = rand switch
-            {
-                > 0.3f => "CommonColors",
-                > 0.1f => "UncommonColors",
-                > 0.05f => "RareColors",
-                _ => "UniqueColors"
-            };
+            ParticleSystem.MinMaxGradient gradientColor = new (colorGradient);
+            mainModule.startColor = gradientColor;
         }
 
-        public static void AmplifyParticleShaderAlpha(ParticleSystem particleSys, float alphaFactor)
+        public static void SetParticleAlpha(ParticleSystem particleSys, float alphaFactor)
         {
             Renderer particleRenderer = particleSys.GetComponent<Renderer>();
             if (particleRenderer != null && particleRenderer.material.HasProperty("_Color"))

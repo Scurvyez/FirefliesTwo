@@ -46,7 +46,7 @@ namespace FirefliesTwoO
             }
 
             Shuffle(_validCells);
-            int removalCount = _validCells.Count / 4;
+            int removalCount = _validCells.Count / 7;
             _validCells.RemoveRange(removalCount, _validCells.Count - removalCount);
 
             foreach (IntVec3 cell in _validCells)

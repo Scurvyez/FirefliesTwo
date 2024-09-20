@@ -23,25 +23,6 @@
         <!--
         x = mapSize.x
 
-        particlesMaxCountCurve.y =
-        POW(particlesMaxCountCurve.x * (1/2) * (particlesMaxCountCurve.x * 0.01), 0.95)
-        -->
-        <particlesMaxCountCurve>
-            <points>
-                <li>(24, 3)</li>
-                <li>(49, 11)</li>
-                <li>(74, 23)</li>
-                <li>(99, 40)</li>
-                <li>(149, 88)</li>
-                <li>(249, 233)</li>
-                <li>(349, 442)</li>
-                <li>(449, 713)</li>
-            </points>
-        </particlesMaxCountCurve>
-
-        <!--
-        x = mapSize.x
-
         particleEmissionRateCurve.y =
         particlesMaxCountCurve.y * (1/4)
         -->
@@ -58,14 +39,13 @@
             </points>
         </particleEmissionRateCurve>
 
-        <particleLifetime>5</particleLifetime>
         <particleSizeFactor>0.3</particleSizeFactor>
         <startHour>19</startHour>
         <endHour>4</endHour>
 
         <!-- ParticleBuilder -->
         <shapeRandomDirectionAmount>0~360</shapeRandomDirectionAmount>
-        <noiseOctaveCount>2</noiseOctaveCount>
+        <noiseOctaveCount>3</noiseOctaveCount>
         <noiseFrequency>1.5</noiseFrequency>
         <noisePositionAmount>0.5</noisePositionAmount>
         <noiseStrength>15</noiseStrength>

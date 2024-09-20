@@ -12,7 +12,7 @@ namespace FirefliesTwoO
             ParticleSystem particleSys = fireflies.GetComponent<ParticleSystem>() ?? fireflies.AddComponent<ParticleSystem>();
             ParticleSystemRenderer renderer = fireflies.GetComponent<ParticleSystemRenderer>() ?? fireflies.AddComponent<ParticleSystemRenderer>();
 
-            ConfigureParticleSystem(particleSys, FFDefOf.FF_Config.particleLifetime);
+            ConfigureParticleSystem(particleSys);
             ConfigureShapeModule(particleSys);
             ConfigureEmissionModule(particleSys);
             ConfigureNoiseModule(particleSys);
@@ -26,14 +26,14 @@ namespace FirefliesTwoO
             return particleSys;
         }
 
-        private static void ConfigureParticleSystem(ParticleSystem particleSys, float particleLifetime)
+        private static void ConfigureParticleSystem(ParticleSystem particleSys)
         {
             ParticleSystem.MainModule mainModule = particleSys.main;
             mainModule.simulationSpace = ParticleSystemSimulationSpace.World;
             mainModule.loop = true;
             mainModule.duration = Rand.Value;
             mainModule.startSize = 1f;
-            mainModule.startLifetime = new ParticleSystem.MinMaxCurve (1, LifeTimeSetter.GetLifetimeCurve());
+            mainModule.startLifetime = new ParticleSystem.MinMaxCurve (1f, LifeTimeSetter.GetMinLifetimeCurve(), LifeTimeSetter.GetMaxLifetimeCurve());
             mainModule.startSpeed = new ParticleSystem.MinMaxCurve(1f, Random.Range(0.01f, 20f));
         }
 
@@ -49,6 +49,7 @@ namespace FirefliesTwoO
         private static void ConfigureEmissionModule(ParticleSystem particleSys)
         {
             ParticleSystem.EmissionModule emissionModule = particleSys.emission;
+            emissionModule.rateOverTime = emissionModule.rateOverTime with { mode = ParticleSystemCurveMode.Constant };
             emissionModule.enabled = true;
         }
         
