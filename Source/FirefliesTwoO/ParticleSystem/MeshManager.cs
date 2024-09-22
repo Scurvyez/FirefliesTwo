@@ -46,7 +46,7 @@ namespace FirefliesTwoO
             }
 
             Shuffle(_validCells);
-            int removalCount = _validCells.Count / 7;
+            int removalCount = _validCells.Count / 10; // TODO: make a curve based on map size or a factor of or something?
             _validCells.RemoveRange(removalCount, _validCells.Count - removalCount);
 
             foreach (IntVec3 cell in _validCells)

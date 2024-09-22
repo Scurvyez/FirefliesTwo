@@ -7,6 +7,7 @@ namespace FirefliesTwoO
     public class MapComponent_NightlySpawning : MapComponent
     {
         private const float MaxParticlesMultiplier = 0.5f;
+        private const float EmissionRateBase = 0.25f;
         private const float EmissionRatePower = 2.7f;
         private const float ParticleAlpha = 2.5f;
         
@@ -81,7 +82,8 @@ namespace FirefliesTwoO
 
             RecalculateMesh();
             main.maxParticles = Mathf.FloorToInt(_validEmissionCells.Count * MaxParticlesMultiplier);
-            emission.rateOverTime = Mathf.Max(4, Mathf.FloorToInt(_validEmissionCells.Count * Mathf.Pow(0.25f, EmissionRatePower)));
+            emission.rateOverTime = Mathf.Max(4, 
+                Mathf.FloorToInt(_validEmissionCells.Count * Mathf.Pow(EmissionRateBase, EmissionRatePower)));
 
             FFLog.Message($"Emission Cells Count: {_validEmissionCells.Count}");
             FFLog.Message($"Particle Count: {main.maxParticles}");
@@ -106,7 +108,7 @@ namespace FirefliesTwoO
         private bool IsPositionValid(Vector3 position)
         {
             IntVec3 intVecPosition = position.ToIntVec3();
-            return intVecPosition.ToVector3().InBounds(map) &&
+            return !intVecPosition.InNoZoneEdgeArea(map) &&
                    map.terrainGrid.TerrainAt(intVecPosition).IsSoil &&
                    !intVecPosition.Roofed(map) &&
                    intVecPosition.Standable(map) &&
@@ -135,7 +137,8 @@ namespace FirefliesTwoO
             ParticleSystem.EmissionModule emission = _particleSystem.emission;
 
             main.maxParticles = Mathf.FloorToInt(_validEmissionCells.Count * MaxParticlesMultiplier);
-            emission.rateOverTime = Mathf.Max(4, Mathf.FloorToInt(_validEmissionCells.Count * Mathf.Pow(0.25f, EmissionRatePower)));
+            emission.rateOverTime = Mathf.Max(4, 
+                Mathf.FloorToInt(_validEmissionCells.Count * Mathf.Pow(EmissionRateBase, EmissionRatePower)));
 
             FFLog.Message($"Updated Particle Count: {main.maxParticles}");
             FFLog.Message($"Updated Emission Rate: {emission.rateOverTime.constant}");
