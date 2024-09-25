@@ -3,15 +3,30 @@
 
     <ThoughtDef>
         <defName>FF_SawFireflies</defName>
-        <durationDays>0.2</durationDays>
+        <durationDays>0.15</durationDays>
         <nullifyingTraits>
             <li>Psychopath</li>
         </nullifyingTraits>
         <stages>
             <li>
-                <label>feel like a kid again</label>
+                <label>Saw fireflies</label>
                 <description>There are so many! Aaaa, they're so beautiful...</description>
-                <baseMoodEffect>4</baseMoodEffect>
+                <baseMoodEffect>3</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>FF_CaughtFireflies</defName>
+        <durationDays>0.55</durationDays>
+        <nullifyingTraits>
+            <li>Psychopath</li>
+        </nullifyingTraits>
+        <stages>
+            <li>
+                <label>Caught a firefly</label>
+                <description>That was so much fun. I can't wait to catch another one!</description>
+                <baseMoodEffect>7</baseMoodEffect>
             </li>
         </stages>
     </ThoughtDef>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <JoyGiverDef>
+        <defName>FF_ChaseFireflies</defName>
+        <giverClass>FirefliesTwoO.JoyGiver_ChaseFireflies</giverClass>
+        <baseChance>0.75</baseChance>
+        <requireChair>false</requireChair>
+        <desireSit>false</desireSit>
+        <jobDef>FF_ChaseFireflies</jobDef>
+        <joyKind>Meditative</joyKind>
+        <requiredCapacities>
+            <li>Manipulation</li>
+        </requiredCapacities>
+    </JoyGiverDef>
+
+</Defs>

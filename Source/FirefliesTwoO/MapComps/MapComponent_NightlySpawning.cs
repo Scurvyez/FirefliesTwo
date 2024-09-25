@@ -7,6 +7,8 @@ namespace FirefliesTwoO
 {
     public class MapComponent_NightlySpawning : MapComponent
     {
+        public bool ParticlesSpawned;
+        
         private const float MaxParticlesMultiplier = 0.5f;
         private const float EmissionRateBase = 0.25f;
         private const float EmissionRatePower = 2.7f;
@@ -19,7 +21,6 @@ namespace FirefliesTwoO
         private MeshManager _meshManager;
         private List<IntVec3> _validEmissionCells;
         private Mesh _spawnAreaMesh;
-        private bool _particlesSpawned;
         private bool _isSystemActive;
         private float _simulationSpeed;
         private int _mapID;
@@ -55,20 +56,15 @@ namespace FirefliesTwoO
             
             switch (isActive)
             {
-                case true when !_particlesSpawned:
+                case true when !ParticlesSpawned:
                     ActivateParticleSystem();
                     break;
-                case false when _particlesSpawned:
+                case false when ParticlesSpawned:
                     DeactivateParticleSystem();
                     break;
             }
             
             if (!isActive) return;
-            // if (Find.TickManager.TicksGame % 250 == 0)
-            // {
-            //     UpdatePawnMemories();
-            // }
-            
             if (_allColumnsValidated) return;
             _allColumnsValidated = _meshManager.ValidateCells();
             
@@ -130,14 +126,14 @@ namespace FirefliesTwoO
         private void ActivateParticleSystem()
         {
             StateHandler.SetParticleSystemState(_particleSystem, true);
-            _particlesSpawned = true;
+            ParticlesSpawned = true;
             _isSystemActive = true;
         }
 
         private void DeactivateParticleSystem()
         {
             StateHandler.SetParticleSystemState(_particleSystem, false);
-            _particlesSpawned = false;
+            ParticlesSpawned = false;
             _isSystemActive = false;
             _allColumnsValidated = false;
             _validEmissionCells?.Clear();
@@ -170,28 +166,10 @@ namespace FirefliesTwoO
             main.simulationSpeed = (float)Find.TickManager.CurTimeSpeed * 1f;
         }
 
-        private void UpdatePawnMemories()
-        {
-            if (map.mapPawns.FreeColonistsSpawned == null) return;
-            FFLog.Message($"FreeColonistsSpawned: {map.mapPawns.FreeColonistsSpawned}");
-            if (map.mapPawns.FreeColonistsSpawned.Count <= 0) return;
-            FFLog.Message($"FreeColonistsSpawned Count: {map.mapPawns.FreeColonistsSpawned.Count}");
-            foreach (Pawn pawn in map.mapPawns.FreeColonistsSpawned)
-            {
-                FFLog.Message($"In Loop...");
-                if (map.glowGrid == null) return;
-                FFLog.Message($"GlowGrid: {map.glowGrid}");
-                
-                if (!(map.glowGrid.GroundGlowAt(pawn.Position) < GroundGlowThreshold)) continue;
-                FFLog.Message($"Glow At {pawn.NameShortColored}'s position: {map.glowGrid.GroundGlowAt(pawn.Position)}");
-                pawn.needs?.mood.thoughts.memories.TryGainMemory(FFDefOf.FF_SawFireflies);
-            }
-        }
-
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref _particlesSpawned, "firefliesSpawned", defaultValue: false);
+            Scribe_Values.Look(ref ParticlesSpawned, "particlesSpawned", defaultValue: false);
             Scribe_Values.Look(ref _isSystemActive, "isSystemActive", defaultValue: false);
             Scribe_Values.Look(ref _simulationSpeed, "simulationSpeed", defaultValue: 1f);
         }

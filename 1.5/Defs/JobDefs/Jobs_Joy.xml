@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <JobDef>
+        <defName>FF_ChaseFireflies</defName>
+        <driverClass>FirefliesTwoO.JobDriver_ChaseFireflies</driverClass>
+        <reportString>chasing fireflies.</reportString>
+        <joyDuration>2500</joyDuration>
+        <joyKind>Meditative</joyKind>
+        <isCrawlingIfDowned>false</isCrawlingIfDowned>
+    </JobDef>
+
+</Defs>

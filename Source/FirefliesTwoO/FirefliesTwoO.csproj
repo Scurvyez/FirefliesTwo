@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony, Version=2.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Lib.Harmony.2.3.3\lib\net472\0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
@@ -68,6 +72,9 @@
     <Compile Include="Debugging\ModuleDebugger.cs" />
     <Compile Include="Defs\NightlySpawningExtension.cs" />
     <Compile Include="FFMod.cs" />
+    <Compile Include="Harmony\Patches.cs" />
+    <Compile Include="JobDrivers\JobDriver_ChaseFireflies.cs" />
+    <Compile Include="JoyGivers\JoyGiver_ChaseFireflies.cs" />
     <Compile Include="MapComps\MapComponent_NightlySpawning.cs" />
     <Compile Include="ParticleSystem\Builder.cs" />
     <Compile Include="ParticleSystem\ColorManager.cs" />

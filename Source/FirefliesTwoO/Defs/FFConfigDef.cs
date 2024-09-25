@@ -19,5 +19,9 @@ namespace FirefliesTwoO
         public float noiseFrequency = 1.5f;
         public float noisePositionAmount = 0.25f;
         public float noiseStrength = 10f;
+        
+        // Jobs
+        public float chaseFirefliesJobFactor = 1f;
+        public float caughtFirefliesChance = 1f;
     }
 }
