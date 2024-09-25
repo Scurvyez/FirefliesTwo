@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -10,7 +11,10 @@ namespace FirefliesTwoO
         private const float EmissionRateBase = 0.25f;
         private const float EmissionRatePower = 2.7f;
         private const float ParticleAlpha = 2.5f;
+        private const float GroundGlowThreshold = 0.5f;
 
+        private NightlySpawningExtension _ext;
+        private float _biomeEmissionRateFactor;
         private ParticleSystem _particleSystem;
         private MeshManager _meshManager;
         private List<IntVec3> _validEmissionCells;
@@ -28,6 +32,12 @@ namespace FirefliesTwoO
             LongEventHandler.ExecuteWhenFinished(InitializeMapSystems);
         }
 
+        public override void FinalizeInit()
+        {
+            _ext = map.Biome.GetModExtension<NightlySpawningExtension>();
+            _biomeEmissionRateFactor = _ext.biomeEmissionRate > 0f ? _ext.biomeEmissionRate : 1f;
+        }
+        
         public override void MapRemoved()
         {
             base.MapRemoved();
@@ -39,8 +49,10 @@ namespace FirefliesTwoO
             base.MapComponentTick();
             
             if (_particleSystem == null) return;
-            bool isActive = StateHandler.IsActive(map);
-
+            bool isClearWeather = map.weatherManager.curWeather == WeatherDefOf.Clear;
+            //bool isActive = StateHandler.IsActiveInHoursRange(map) && isClearWeather;
+            bool isActive = StateHandler.IsActiveBelowSunGlowThreshold(map) && isClearWeather;
+            
             switch (isActive)
             {
                 case true when !_particlesSpawned:
@@ -51,23 +63,20 @@ namespace FirefliesTwoO
                     break;
             }
             
-            // If particle system is inactive, no need to proceed further
             if (!isActive) return;
-
-            // Validate cells and construct mesh
+            // if (Find.TickManager.TicksGame % 250 == 0)
+            // {
+            //     UpdatePawnMemories();
+            // }
+            
             if (_allColumnsValidated) return;
             _allColumnsValidated = _meshManager.ValidateCells();
             
             if (!_allColumnsValidated) return;
-            // Only construct mesh if all columns have been validated
             _meshManager.ConstructMesh(_spawnAreaMesh);
             _validEmissionCells = _meshManager.FinalValidCells;
-
-            // Set particle system shape after all columns are validated
             ParticleSystem.ShapeModule shapeModule = _particleSystem.shape;
             shapeModule.mesh = _spawnAreaMesh;
-            
-            // Set particle system parameters after all cells have been validated
             UpdateParticleSystemParameters();
         }
 
@@ -85,29 +94,37 @@ namespace FirefliesTwoO
 
         private void InitializeMapSystems()
         {
-            if (_particleSystem != null || !FFDefOf.FF_Config.allowedBiomes.Contains(map.Biome)) return;
+            if (_particleSystem != null) return;
+            if (FFDefOf.FF_Config.allowedBiomes.Contains(map.Biome))
+            {
+                _mapID = map.GetHashCode();
+                _spawnAreaMesh = new Mesh();
+                _meshManager = new MeshManager(map, IsPositionValid);
+                _particleSystem = Builder.CreateFireflyParticleSystem(_mapID);
+                _particleSystem.transform.position = Vector3.zero;
 
-            _mapID = map.GetHashCode();
-            _spawnAreaMesh = new Mesh();
-            _meshManager = new MeshManager(map, IsPositionValid);
-            _particleSystem = Builder.CreateFireflyParticleSystem(_mapID);
-            _particleSystem.transform.position = Vector3.zero;
-
-            ColorManager.GetBaseColorGradient(_particleSystem);
-            ColorManager.SetParticleAlpha(_particleSystem, ParticleAlpha);
-            StateHandler.RestoreParticleSystemState(_particleSystem, _isSystemActive, _simulationSpeed);
+                ColorManager.GetBaseColorGradient(_particleSystem);
+                ColorManager.SetParticleAlpha(_particleSystem, ParticleAlpha);
+                StateHandler.RestoreParticleSystemState(_particleSystem, _isSystemActive, _simulationSpeed);
+            }
+            else
+            {
+                string allowedBiomeNames = string.Join(", ", FFDefOf.FF_Config.allowedBiomes.ConvertAll(biome => biome.defName));
+                FFLog.Message($"Firefly spawning not supported for {map.Biome.defName}. Supported biomes are: {allowedBiomeNames}");
+            }
         }
 
         private bool IsPositionValid(Vector3 position)
         {
             IntVec3 intVecPosition = position.ToIntVec3();
-            return !intVecPosition.InNoZoneEdgeArea(map) &&
+            return Rand.Value <= 0.33f && 
+                   !intVecPosition.InNoZoneEdgeArea(map) &&
                    !intVecPosition.Fogged(map) &&
                    !intVecPosition.Roofed(map) &&
                    map.terrainGrid.TerrainAt(intVecPosition).IsSoil &&
-                   Rand.Value <= 0.33f &&
                    intVecPosition.Standable(map) &&
-                   !intVecPosition.IsPolluted(map);
+                   !intVecPosition.IsPolluted(map) &&
+                   map.glowGrid.GroundGlowAt(intVecPosition) < GroundGlowThreshold;
         }
 
         private void ActivateParticleSystem()
@@ -134,14 +151,41 @@ namespace FirefliesTwoO
             ParticleSystem.EmissionModule emission = _particleSystem.emission;
 
             main.maxParticles = Mathf.FloorToInt(_validEmissionCells.Count * MaxParticlesMultiplier);
-            emission.rateOverTime = Mathf.Max(4, 
-                Mathf.FloorToInt(_validEmissionCells.Count * Mathf.Pow(EmissionRateBase, EmissionRatePower)));
+            
+            int validCellsCount = _validEmissionCells.Count;
+            float rawEmissionRate = validCellsCount * Mathf.Pow(EmissionRateBase, EmissionRatePower);
+            float biomeAdjustedEmissionRate = rawEmissionRate * _biomeEmissionRateFactor;
+            float finalEmissionRate = Mathf.Max(4, Mathf.FloorToInt(biomeAdjustedEmissionRate));
+            
+            FFLog.Message($"Raw Emission Rate (before biome factor): {rawEmissionRate}");
+            FFLog.Message($"Biome-Adjusted Emission Rate: {biomeAdjustedEmissionRate}");
+            FFLog.Message($"Final Emission Rate (after applying min cap): {finalEmissionRate}");
+            
+            emission.rateOverTime = finalEmissionRate;
         }
 
         private void UpdateSimulationSpeed()
         {
             ParticleSystem.MainModule main = _particleSystem.main;
             main.simulationSpeed = (float)Find.TickManager.CurTimeSpeed * 1f;
+        }
+
+        private void UpdatePawnMemories()
+        {
+            if (map.mapPawns.FreeColonistsSpawned == null) return;
+            FFLog.Message($"FreeColonistsSpawned: {map.mapPawns.FreeColonistsSpawned}");
+            if (map.mapPawns.FreeColonistsSpawned.Count <= 0) return;
+            FFLog.Message($"FreeColonistsSpawned Count: {map.mapPawns.FreeColonistsSpawned.Count}");
+            foreach (Pawn pawn in map.mapPawns.FreeColonistsSpawned)
+            {
+                FFLog.Message($"In Loop...");
+                if (map.glowGrid == null) return;
+                FFLog.Message($"GlowGrid: {map.glowGrid}");
+                
+                if (!(map.glowGrid.GroundGlowAt(pawn.Position) < GroundGlowThreshold)) continue;
+                FFLog.Message($"Glow At {pawn.NameShortColored}'s position: {map.glowGrid.GroundGlowAt(pawn.Position)}");
+                pawn.needs?.mood.thoughts.memories.TryGainMemory(FFDefOf.FF_SawFireflies);
+            }
         }
 
         public override void ExposeData()

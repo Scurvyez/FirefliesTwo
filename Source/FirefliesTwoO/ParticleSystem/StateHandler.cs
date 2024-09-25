@@ -6,12 +6,19 @@ namespace FirefliesTwoO
 {
     public static class StateHandler
     {
-        public static bool IsActive(Map map)
+        public static bool IsActiveInHoursRange(Map map)
         {
             float currentHour = GenLocalDate.DayPercent(map) * 24f;
             bool active = (FFDefOf.FF_Config.startHour <= FFDefOf.FF_Config.endHour) ?
                 (currentHour >= FFDefOf.FF_Config.startHour && currentHour < FFDefOf.FF_Config.endHour) :
                 (currentHour >= FFDefOf.FF_Config.startHour || currentHour < FFDefOf.FF_Config.endHour);
+            return active;
+        }
+        
+        public static bool IsActiveBelowSunGlowThreshold(Map map)
+        {
+            float currentSunGlow = GenCelestial.CurCelestialSunGlow(map);
+            bool active = currentSunGlow <= FFDefOf.FF_Config.sunGlowThreshold;
             return active;
         }
         

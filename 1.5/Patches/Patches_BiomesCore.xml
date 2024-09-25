@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+    <Operation Class="PatchOperationAddModExtension">
+        <xpath>Defs/BiomeDef[defName="BorealForest"]</xpath>
+        <value>
+            <li Class="FirefliesTwoO.NightlySpawningExtension">
+                <biomeEmissionRate>0.8</biomeEmissionRate>
+            </li>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationAddModExtension">
+        <xpath>Defs/BiomeDef[defName="TemperateForest"]</xpath>
+        <value>
+            <li Class="FirefliesTwoO.NightlySpawningExtension">
+                <biomeEmissionRate>0.9</biomeEmissionRate>
+            </li>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationAddModExtension">
+        <xpath>Defs/BiomeDef[defName="TemperateSwamp" or defName="TropicalRainforest"]</xpath>
+        <value>
+            <li Class="FirefliesTwoO.NightlySpawningExtension">
+                <biomeEmissionRate>1.1</biomeEmissionRate>
+            </li>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationAddModExtension">
+        <xpath>Defs/BiomeDef[defName="AridShrubland" or defName="Desert"]</xpath>
+        <value>
+            <li Class="FirefliesTwoO.NightlySpawningExtension">
+                <biomeEmissionRate>0.5</biomeEmissionRate>
+            </li>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationAddModExtension">
+        <xpath>Defs/BiomeDef[defName="ExtremeDesert"]</xpath>
+        <value>
+            <li Class="FirefliesTwoO.NightlySpawningExtension">
+                <biomeEmissionRate>0.3</biomeEmissionRate>
+            </li>
+        </value>
+    </Operation>
+
+</Patch>

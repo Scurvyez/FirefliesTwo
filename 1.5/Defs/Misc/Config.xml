@@ -23,10 +23,11 @@
         <particleSizeFactor>0.3</particleSizeFactor>
         <startHour>19</startHour>
         <endHour>4</endHour>
+        <sunGlowThreshold>0.3</sunGlowThreshold>
 
         <!-- ParticleBuilder -->
         <shapeRandomDirectionAmount>0~360</shapeRandomDirectionAmount>
-        <noiseOctaveCount>3</noiseOctaveCount>
+        <noiseOctaveCount>2</noiseOctaveCount>
         <noiseFrequency>1.5</noiseFrequency>
         <noisePositionAmount>0.5</noisePositionAmount>
         <noiseStrength>15</noiseStrength>
