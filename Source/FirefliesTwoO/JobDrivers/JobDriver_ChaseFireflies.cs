@@ -17,8 +17,14 @@ namespace FirefliesTwoO
         
         protected override IEnumerable<Toil> MakeNewToils()
         {
+            MapComponent_NightlySpawning mapComp = pawn.Map?.GetComponent<MapComponent_NightlySpawning>();
+            if (mapComp == null || !mapComp.ParticlesSpawned)
+            {
+                EndJobWith(JobCondition.Incompletable);
+                yield break;
+            }
+
             yield return Toils_Goto.GotoCell(TargetIndex.A, PathEndMode.OnCell);
-            MapComponent_NightlySpawning mapComp = pawn.Map.GetComponent<MapComponent_NightlySpawning>();
             randomTickInterval = Rand.RangeInclusive(30, 120);
             
             Toil chaseFireflies = new()
@@ -39,7 +45,7 @@ namespace FirefliesTwoO
                 defaultCompleteMode = ToilCompleteMode.Delay,
                 defaultDuration = job.def.joyDuration
             };
-            
+
             chaseFireflies.AddFinishAction(() =>
             {
                 if (!Rand.Chance(FFDefOf.FF_Config.caughtFirefliesChance)) return;
@@ -54,6 +60,15 @@ namespace FirefliesTwoO
         public override string GetReport()
         {
             return "FF_ChasingFireflies".Translate();
+        }
+        
+        // this is literally not needed one fucking bit as the job will never resume on load
+        // :smugSip:
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_Values.Look(ref tickCounter, "tickCounter", 0);
+            Scribe_Values.Look(ref randomTickInterval, "randomTickInterval", 60);
         }
     }
 }
