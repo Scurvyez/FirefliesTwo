@@ -1,4 +1,4 @@
-Discord: Steveo.o
+Discord: steveo.o
 
 steam: Scurvyez
 
