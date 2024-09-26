@@ -26,6 +26,8 @@
             <li MayRequire="zylle.MoreVanillaBiomes">ZBiome_DesertOasis</li>
             <li MayRequire="zylle.MoreVanillaBiomes">ZBiome_Grasslands</li>
             <li MayRequire="zylle.MoreVanillaBiomes">ZBiome_Marsh</li>
+            <li MayRequire="sarg.alphabiomes">AB_FeraliskInfestedJungle</li>
+            <li MayRequire="sarg.alphabiomes">AB_IdyllicMeadows</li>
         </allowedBiomes>
 
         <particleSizeFactor>0.3</particleSizeFactor>
