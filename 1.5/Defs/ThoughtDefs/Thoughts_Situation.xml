@@ -6,7 +6,13 @@
         <durationDays>0.15</durationDays>
         <nullifyingTraits>
             <li>Psychopath</li>
+            <li>Undergrounder</li>
         </nullifyingTraits>
+        <nullifyingPrecepts>
+            <li MayRequire="Ludeon.RimWorld.Ideology">Blindness_Respected</li>
+            <li MayRequire="Ludeon.RimWorld.Ideology">Blindness_Elevated</li>
+            <li MayRequire="Ludeon.RimWorld.Ideology">Blindness_Sublime</li>
+        </nullifyingPrecepts>
         <stages>
             <li>
                 <label>Saw fireflies</label>
@@ -17,16 +23,37 @@
     </ThoughtDef>
 
     <ThoughtDef>
-        <defName>FF_CaughtFireflies</defName>
+        <defName>FF_CaughtAFirefly</defName>
         <durationDays>0.55</durationDays>
         <nullifyingTraits>
             <li>Psychopath</li>
+            <li>Undergrounder</li>
         </nullifyingTraits>
+        <nullifyingPrecepts>
+            <li MayRequire="Ludeon.RimWorld.Ideology">Blindness_Respected</li>
+            <li MayRequire="Ludeon.RimWorld.Ideology">Blindness_Elevated</li>
+            <li MayRequire="Ludeon.RimWorld.Ideology">Blindness_Sublime</li>
+        </nullifyingPrecepts>
         <stages>
             <li>
                 <label>Caught a firefly</label>
                 <description>That was so much fun. I can't wait to catch another one!</description>
                 <baseMoodEffect>7</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>FF_SquishedAFirefly</defName>
+        <durationDays>0.5</durationDays>
+        <nullifyingTraits>
+            <li>Psychopath</li>
+        </nullifyingTraits>
+        <stages>
+            <li>
+                <label>Squished a firefly</label>
+                <description>Oh no! I was too strong!</description>
+                <baseMoodEffect>-4</baseMoodEffect>
             </li>
         </stages>
     </ThoughtDef>

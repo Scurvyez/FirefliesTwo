@@ -22,6 +22,6 @@ namespace FirefliesTwoO
         
         // Jobs
         public float chaseFirefliesJobFactor = 1f;
-        public float caughtFirefliesChance = 1f;
+        public float caughtAFireflyChance = 1f;
     }
 }

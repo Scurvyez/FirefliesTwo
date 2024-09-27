@@ -76,6 +76,8 @@
     <Compile Include="JobDrivers\JobDriver_ChaseFireflies.cs" />
     <Compile Include="JoyGivers\JoyGiver_ChaseFireflies.cs" />
     <Compile Include="MapComps\MapComponent_NightlySpawning.cs" />
+    <Compile Include="MapUtilities\MapCellFinder.cs" />
+    <Compile Include="MapUtilities\MapCellValidator.cs" />
     <Compile Include="ParticleSystem\Builder.cs" />
     <Compile Include="ParticleSystem\ColorManager.cs" />
     <Compile Include="ParticleSystem\LifeTimeSetter.cs" />

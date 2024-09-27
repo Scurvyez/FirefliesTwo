@@ -33,7 +33,7 @@
         <particleSizeFactor>0.3</particleSizeFactor>
         <startHour>19</startHour> <!-- unused atm -->
         <endHour>4</endHour> <!-- unused atm -->
-        <sunGlowThreshold>0.3</sunGlowThreshold>
+        <sunGlowThreshold>0.3</sunGlowThreshold> <!-- yields better results -->
 
         <!-- ParticleBuilder -->
         <shapeRandomDirectionAmount>0~360</shapeRandomDirectionAmount>
@@ -44,7 +44,7 @@
 
         <!-- Jobs -->
         <chaseFirefliesJobFactor>0.75</chaseFirefliesJobFactor>
-        <caughtFirefliesChance>0.25</caughtFirefliesChance>
+        <caughtAFireflyChance>0.25</caughtAFireflyChance>
     </FirefliesTwoO.FFConfigDef>
 
 </Defs>

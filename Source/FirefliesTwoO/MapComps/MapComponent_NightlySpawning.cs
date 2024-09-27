@@ -13,12 +13,12 @@ namespace FirefliesTwoO
         private const float EmissionRateBase = 0.25f;
         private const float EmissionRatePower = 2.7f;
         private const float ParticleAlpha = 2.5f;
-        private const float GroundGlowThreshold = 0.5f;
 
         private NightlySpawningExtension _ext;
         private float _biomeEmissionRateFactor;
         private ParticleSystem _particleSystem;
         private MeshManager _meshManager;
+        private MapCellValidator _cellValidator;
         private List<IntVec3> _validEmissionCells;
         private Mesh _spawnAreaMesh;
         private bool _isSystemActive;
@@ -26,6 +26,7 @@ namespace FirefliesTwoO
         private int _mapID;
         private bool _allColumnsValidated;
 
+        public List<IntVec3> ValidEmissionCells => _validEmissionCells;
         private static bool DrawMeshNow => MeshOverlayDrawer.DrawFireflySpawnMesh;
         
         public MapComponent_NightlySpawning(Map map) : base(map)
@@ -51,7 +52,6 @@ namespace FirefliesTwoO
             
             if (_particleSystem == null) return;
             bool isClearWeather = map.weatherManager.curWeather == WeatherDefOf.Clear;
-            //bool isActive = StateHandler.IsActiveInHoursRange(map) && isClearWeather;
             bool isActive = StateHandler.IsActiveBelowSunGlowThreshold(map) && isClearWeather;
             
             switch (isActive)
@@ -95,7 +95,8 @@ namespace FirefliesTwoO
             {
                 _mapID = map.GetHashCode();
                 _spawnAreaMesh = new Mesh();
-                _meshManager = new MeshManager(map, IsPositionValid);
+                _cellValidator = new MapCellValidator(map);
+                _meshManager = new MeshManager(map, _cellValidator.IsCellValidForParticleEmissionMesh);
                 _particleSystem = Builder.CreateFireflyParticleSystem(_mapID);
                 _particleSystem.transform.position = Vector3.zero;
 
@@ -108,19 +109,6 @@ namespace FirefliesTwoO
                 string allowedBiomeNames = string.Join(", ", FFDefOf.FF_Config.allowedBiomes.ConvertAll(biome => biome.defName));
                 FFLog.Message($"Firefly spawning not supported for {map.Biome.defName}. Supported biomes are: {allowedBiomeNames}");
             }
-        }
-
-        private bool IsPositionValid(Vector3 position)
-        {
-            IntVec3 intVecPosition = position.ToIntVec3();
-            return Rand.Value <= 0.33f && 
-                   !intVecPosition.InNoZoneEdgeArea(map) &&
-                   !intVecPosition.Fogged(map) &&
-                   !intVecPosition.Roofed(map) &&
-                   map.terrainGrid.TerrainAt(intVecPosition).IsSoil &&
-                   intVecPosition.Standable(map) &&
-                   !intVecPosition.IsPolluted(map) &&
-                   map.glowGrid.GroundGlowAt(intVecPosition) < GroundGlowThreshold;
         }
 
         private void ActivateParticleSystem()
