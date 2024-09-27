@@ -24,7 +24,7 @@ This mod is about fireflies only. I might make a separate mod for more general a
 + Thoughts
     - good (short-term) memory for being outside while fireflies are active
     - good (short-term) memory for catching a firefly while chasing them, 25% base chance
-
+    - bad (short-term) memory for accidentally squishing a firefly, chance based on several factors
 
 ### Mod Authors
 + "FirefliesTwoO.FFConfigDef"
