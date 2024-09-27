@@ -8,8 +8,8 @@ namespace FirefliesTwoO
 {
     public class JobDriver_ChaseFireflies : JobDriver
     {
-        private int tickCounter = 0;
-        private int randomTickInterval;
+        public int tickCounter = 0;
+        public int randomTickInterval;
         
         public override bool TryMakePreToilReservations(bool errorOnFailed)
         {
