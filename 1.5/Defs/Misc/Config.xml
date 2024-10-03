@@ -4,32 +4,6 @@
     <FirefliesTwoO.FFConfigDef>
         <defName>FF_Config</defName>
 
-        <!-- MapComponent_FFNightlySpawning -->
-        <!-- if you patch into this, make sure the biome you're adding contains...
-             - soil terrain (any kind of soil)
-             - some portion of the day which is below the sunGlowThreshold (check below) -->
-        <allowedBiomes>
-            <li>BorealForest</li>
-            <li>TemperateForest</li>
-            <li>TemperateSwamp</li>
-            <li>TropicalRainforest</li>
-            <li>TropicalSwamp</li>
-            <li>AridShrubland</li>
-            <li>Desert</li>
-            <li>ExtremeDesert</li>
-            <li MayRequire="Scurvyez.AlienBiomes">SZ_RadiantPlains</li>
-            <li MayRequire="Scurvyez.AlienBiomes">SZ_DeliriousDunes</li>
-            <li MayRequire="Scurvyez.AlienBiomes">SZ_CrystallineFlats</li>
-            <li MayRequire="zylle.MoreVanillaBiomes">ZBiome_AlpineMeadow</li>
-            <li MayRequire="zylle.MoreVanillaBiomes">ZBiome_CloudForest</li>
-            <li MayRequire="zylle.MoreVanillaBiomes">ZBiome_CoastalDunes</li>
-            <li MayRequire="zylle.MoreVanillaBiomes">ZBiome_DesertOasis</li>
-            <li MayRequire="zylle.MoreVanillaBiomes">ZBiome_Grasslands</li>
-            <li MayRequire="zylle.MoreVanillaBiomes">ZBiome_Marsh</li>
-            <li MayRequire="sarg.alphabiomes">AB_FeraliskInfestedJungle</li>
-            <li MayRequire="sarg.alphabiomes">AB_IdyllicMeadows</li>
-        </allowedBiomes>
-
         <particleSizeFactor>0.3</particleSizeFactor>
         <startHour>19</startHour> <!-- unused atm -->
         <endHour>4</endHour> <!-- unused atm -->

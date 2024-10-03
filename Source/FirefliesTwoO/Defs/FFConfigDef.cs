@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using RimWorld;
 using Verse;
 
 namespace FirefliesTwoO
@@ -7,7 +5,6 @@ namespace FirefliesTwoO
     public class FFConfigDef : Def
     {
         // MapComponent_FFNightlySpawning
-        public List<BiomeDef> allowedBiomes;
         public float particleSizeFactor = 1f;
         public float startHour = 19f;
         public float endHour = 4f;

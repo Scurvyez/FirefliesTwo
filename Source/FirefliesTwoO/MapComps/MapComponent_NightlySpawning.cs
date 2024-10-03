@@ -36,6 +36,7 @@ namespace FirefliesTwoO
 
         public override void FinalizeInit()
         {
+            if (!map.Biome.HasModExtension<NightlySpawningExtension>()) return;
             _ext = map.Biome.GetModExtension<NightlySpawningExtension>();
             _biomeEmissionRateFactor = _ext.biomeEmissionRate > 0f ? _ext.biomeEmissionRate : 1f;
         }
@@ -91,7 +92,7 @@ namespace FirefliesTwoO
         private void InitializeMapSystems()
         {
             if (_particleSystem != null) return;
-            if (FFDefOf.FF_Config.allowedBiomes.Contains(map.Biome))
+            if (_ext != null)
             {
                 _mapID = map.GetHashCode();
                 _spawnAreaMesh = new Mesh();
@@ -106,8 +107,19 @@ namespace FirefliesTwoO
             }
             else
             {
-                string allowedBiomeNames = string.Join(", ", FFDefOf.FF_Config.allowedBiomes.ConvertAll(biome => biome.defName));
-                FFLog.Message($"Firefly spawning not supported for {map.Biome.defName}. Supported biomes are: {allowedBiomeNames}");
+                List<string> allowedBiomes = [];
+                foreach (BiomeDef biomeDef in DefDatabase<BiomeDef>.AllDefsListForReading)
+                {
+                    if (biomeDef.HasModExtension<NightlySpawningExtension>())
+                    {
+                        allowedBiomes.Add(biomeDef.defName);
+                    }
+                }
+
+                string message = allowedBiomes.Count > 0
+                    ? $"Supported biomes for firefly spawning: {string.Join(", ", allowedBiomes)}"
+                    : "No biomes support firefly spawning.";
+                FFLog.Message(message);
             }
         }
 
