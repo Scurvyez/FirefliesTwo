@@ -21,10 +21,10 @@ namespace FirefliesTwoO
         {
             if (!__instance.Spawned || !__instance.IsColonist || 
                 __instance.IsColonyMech || __instance.DeadOrDowned) return;
-
+            if (__instance.needs?.mood?.thoughts?.memories?.GetFirstMemoryOfDef(FFDefOf.FF_SawFireflies) != null) return;
             MapComponent_NightlySpawning mapComp = __instance.Map.GetComponent<MapComponent_NightlySpawning>();
+            
             if (mapComp is not { ParticlesSpawned: true }) return;
-
             if (__instance.Map.glowGrid.GroundGlowAt(__instance.Position) < GroundGlowThreshold)
             {
                 __instance.needs?.mood?.thoughts?.memories?.TryGainMemory(FFDefOf.FF_SawFireflies);

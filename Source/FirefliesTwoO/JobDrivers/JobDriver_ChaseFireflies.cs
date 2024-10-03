@@ -35,7 +35,7 @@ namespace FirefliesTwoO
             {
                 initAction = delegate
                 {
-                    if (MapCellFinder.TryFindRandomEmissionCell(pawn.Position, pawn, mapComp, out IntVec3 newCell))
+                    if (MapCellFinder.TryFindRandomEmissionCell(pawn.Position, mapComp, out IntVec3 newCell))
                     {
                         pawn.pather.StartPath(newCell, PathEndMode.OnCell);
                     }
@@ -51,7 +51,7 @@ namespace FirefliesTwoO
         {
             randomTickInterval = Rand.RangeInclusive(30, 120);
 
-            Toil chaseFireflies = new Toil
+            Toil chaseFireflies = new()
             {
                 tickAction = () => ExecuteChaseFirefliesTickAction(mapComp),
                 defaultCompleteMode = ToilCompleteMode.Delay,
@@ -71,7 +71,7 @@ namespace FirefliesTwoO
             JoyUtility.JoyTickCheckEnd(pawn, JoyTickFullJoyAction.EndJob, joyGainFactor);
 
             if (tickCounter < randomTickInterval) return;
-            if (MapCellFinder.TryFindRandomEmissionCell(pawn.Position, pawn, mapComp, out IntVec3 newCell))
+            if (MapCellFinder.TryFindRandomEmissionCell(pawn.Position, mapComp, out IntVec3 newCell))
             {
                 pawn.pather.StartPath(newCell, PathEndMode.OnCell);
             }
