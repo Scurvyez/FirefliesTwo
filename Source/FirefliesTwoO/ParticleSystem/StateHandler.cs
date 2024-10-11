@@ -6,28 +6,24 @@ namespace FirefliesTwoO
 {
     public static class StateHandler
     {
-        public static bool IsActiveInHoursRange(Map map)
+        public static bool IsActive(Map map)
         {
-            float currentHour = GenLocalDate.DayPercent(map) * 24f;
-            bool active = (FFDefOf.FF_Config.startHour <= FFDefOf.FF_Config.endHour) ?
-                (currentHour >= FFDefOf.FF_Config.startHour && currentHour < FFDefOf.FF_Config.endHour) :
-                (currentHour >= FFDefOf.FF_Config.startHour || currentHour < FFDefOf.FF_Config.endHour);
-            return active;
-        }
-        
-        public static bool IsActiveBelowSunGlowThreshold(Map map)
-        {
+            if (map == null) return false;
+            
+            Season currentSeason = GenLocalDate.Season(map);
+            if (currentSeason is Season.Winter or Season.PermanentWinter) return false;
+            if (map.mapTemperature.OutdoorTemp < FFDefOf.FF_Config.outdoorTempThreshold) return false;
+            
             float currentSunGlow = GenCelestial.CurCelestialSunGlow(map);
-            bool active = currentSunGlow <= FFDefOf.FF_Config.sunGlowThreshold;
-            return active;
+            if (currentSunGlow > FFDefOf.FF_Config.sunGlowThreshold) return false;
+            
+            return map.weatherManager.curWeather == WeatherDefOf.Clear;
         }
         
         public static void DestroyParticleSystem(ParticleSystem particleSystem)
         {
             if (particleSystem == null) return;
-            //string system = _particleSystem.gameObject.name;
             Object.Destroy(particleSystem.gameObject);
-            //FFLog.Message($"{particleSystem.gameObject.name} destroyed.");
         }
         
         public static void RestoreParticleSystemState(ParticleSystem particleSystem, bool isSystemActive, float simulationSpeed)

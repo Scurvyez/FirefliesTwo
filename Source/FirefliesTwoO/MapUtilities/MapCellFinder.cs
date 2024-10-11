@@ -11,7 +11,6 @@ namespace FirefliesTwoO
                 result = root;
                 return false;
             }
-
             result = mapComp.ValidEmissionCells.RandomElement();
             return true;
         }

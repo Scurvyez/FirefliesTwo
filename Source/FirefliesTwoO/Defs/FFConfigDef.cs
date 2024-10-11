@@ -6,9 +6,8 @@ namespace FirefliesTwoO
     {
         // MapComponent_FFNightlySpawning
         public float particleSizeFactor = 1f;
-        public float startHour = 19f;
-        public float endHour = 4f;
         public float sunGlowThreshold = 1f;
+        public float outdoorTempThreshold = 1f;
 
         // ParticleBuilder
         public FloatRange shapeRandomDirectionAmount = new (0f, 360f);

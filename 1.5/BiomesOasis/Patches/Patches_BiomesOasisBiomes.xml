@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+    <Operation Class="PatchOperationAddModExtension">
+        <xpath>Defs/BiomeDef[defName="BMT_ChromaticOasis"]</xpath>
+        <value>
+            <li Class="FirefliesTwoO.NightlySpawningExtension">
+                <biomeEmissionRate>3.2</biomeEmissionRate>
+            </li>
+        </value>
+    </Operation>
+
+</Patch>

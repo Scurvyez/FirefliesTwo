@@ -8,28 +8,29 @@ This mod is about fireflies only. I might make a separate mod for more general a
 
 ### Supported Biomes
 
-+ [Core] BorealForest, TemperateForest, TemperateSwamp, TropicalRainforest, TropicalSwamp, AridShrubland, Desert, and ExtremeDesert
-+ [More Vanilla Biomes] ZBiome_AlpineMeadow, ZBiome_CloudForest, ZBiome_CoastalDunes, ZBiome_DesertOasis, ZBiome_Grasslands, and ZBiome_Marsh
-+ [Alien Biomes (WIP)] SZ_RadiantPlains, SZ_DeliriousDunes, and SZ_CrystallineFlats
-+ [Alpha Biomes] AB_FeraliskInfestedJungle and AB_IdyllicMeadows
++ [Core] BorealForest, Temperate Forest, Temperate Swamp, Tropical Rainforest, Tropical Swamp, Arid Shrubland, Desert, and Extreme Desert
++ [More Vanilla Biomes] Alpine Meadow, Cloud Forest, Coastal Dunes, Desert Oasis, Grasslands, and Marsh
++ [Alien Biomes (WIP)] Radiant Plains, Delirious Dunes, and Crystalline Flats
++ [Alpha Biomes] Feralisk Infested Jungle and Idyllic Meadows
++ [Biomes! Oasis] Chromatic Oasis
 
 ### Features
 + Fireflies spawn if...
-    - the weather is clear
-    - ambient light from sun is less than 30% (so from around dusk til dawn)
-    - additional log message pops if you chose a biome not supported
+  - the weather is clear
+  - the outdoor temperature is above some threshold, 5C by default
+  - the current season is not winter or permanent winter
+  - ambient light from sun is less than 30% (so from around dusk til dawn)
+  - additional log message pops if you chose a biome not supported
 + Jobs
-    - pawns can periodically chase fireflies for fun, 75% base chance
-    - will count towards joy/recreation
+  - pawns can periodically chase fireflies for fun, 75% base chance
+  - will count towards joy/recreation
 + Thoughts
-    - good (short-term) memory for being outside while fireflies are active
-    - good (short-term) memory for catching a firefly while chasing them, 25% base chance
-    - bad (short-term) memory for accidentally squishing a firefly, chance based on several factors
+  - good (short-term) memory for being outside while fireflies are active
+  - good (short-term) memory for catching a firefly while chasing them, 25% base chance
+  - bad (short-term) memory for accidentally squishing a firefly, chance based on several factors
 
 ### Mod Authors
-+ "FirefliesTwoO.FFConfigDef"
-    - patch your custom BiomeDef into the "allowedBiomes" field
 + "FirefliesTwoO.NightlySpawningExtension"
-    - add to your custom BiomeDef via a PatchOperationFindMod + PatchOperationAddModExtension
-    - specify a value for the "biomeEmissionRate" field, 1 = base/default value
-    - less than 1 means a slightly lower final emission rate; greater than 1, the opposite
+  - add to your custom BiomeDef via a PatchOperationAddModExtension
+  - specify a value for the "biomeEmissionRate" field, 1 = base/default value
+  - less than 1 means a slightly lower final emission rate; greater than 1, the opposite

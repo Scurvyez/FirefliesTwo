@@ -15,15 +15,15 @@ namespace FirefliesTwoO
         
         public bool IsCellValidForParticleEmissionMesh(Vector3 position)
         {
-            IntVec3 intVecPosition = position.ToIntVec3();
-            return Rand.Value <= 0.33f && 
-                   !intVecPosition.InNoZoneEdgeArea(_map) &&
-                   !intVecPosition.Fogged(_map) &&
-                   !intVecPosition.Roofed(_map) &&
-                   _map.terrainGrid.TerrainAt(intVecPosition).IsSoil &&
-                   intVecPosition.Standable(_map) &&
-                   !intVecPosition.IsPolluted(_map) &&
-                   _map.glowGrid.GroundGlowAt(intVecPosition) < GroundGlowThreshold;
+            IntVec3 intVecPosition = position.ToIntVec3();                           // ~0.1 ms
+            return Rand.Value <= 0.33f &&                                            // ~0.1 ms
+                   !intVecPosition.InNoZoneEdgeArea(_map) &&                         // ~0.1 ms
+                   !intVecPosition.IsPolluted(_map) &&                               // ~0.1 ms
+                   !intVecPosition.Roofed(_map) &&                                   // ~0.2 ms
+                   intVecPosition.Standable(_map) &&                                 // ~0.2 ms
+                   !intVecPosition.Fogged(_map) &&                                   // ~0.5 ms
+                   _map.terrainGrid.TerrainAt(intVecPosition).IsSoil &&              // ~0.5 ms
+                   _map.glowGrid.GroundGlowAt(intVecPosition) < GroundGlowThreshold; // ~0.5 ms
         }
     }
 }

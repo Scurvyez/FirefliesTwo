@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+    <Operation Class="PatchOperationSequence">
+        <operations>
+            <li Class="PatchOperationAddModExtension">
+                <xpath>Defs/BiomeDef[defName="AB_FeraliskInfestedJungle"]</xpath>
+                <value>
+                    <li Class="FirefliesTwoO.NightlySpawningExtension">
+                        <biomeEmissionRate>3.2</biomeEmissionRate>
+                    </li>
+                </value>
+            </li>
+            <li Class="PatchOperationAddModExtension">
+                <xpath>Defs/BiomeDef[defName="AB_IdyllicMeadows"]</xpath>
+                <value>
+                    <li Class="FirefliesTwoO.NightlySpawningExtension">
+                        <biomeEmissionRate>5.2</biomeEmissionRate>
+                    </li>
+                </value>
+            </li>
+        </operations>
+    </Operation>
+
+</Patch>

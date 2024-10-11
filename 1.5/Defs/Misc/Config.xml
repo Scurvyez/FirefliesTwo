@@ -5,9 +5,8 @@
         <defName>FF_Config</defName>
 
         <particleSizeFactor>0.3</particleSizeFactor>
-        <startHour>19</startHour> <!-- unused atm -->
-        <endHour>4</endHour> <!-- unused atm -->
-        <sunGlowThreshold>0.3</sunGlowThreshold> <!-- yields better results -->
+        <sunGlowThreshold>0.3</sunGlowThreshold>
+        <outdoorTempThreshold>5</outdoorTempThreshold>
 
         <!-- ParticleBuilder -->
         <shapeRandomDirectionAmount>0~360</shapeRandomDirectionAmount>

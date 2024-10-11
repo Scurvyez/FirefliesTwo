@@ -52,8 +52,7 @@ namespace FirefliesTwoO
             base.MapComponentTick();
             
             if (_particleSystem == null) return;
-            bool isClearWeather = map.weatherManager.curWeather == WeatherDefOf.Clear;
-            bool isActive = StateHandler.IsActiveBelowSunGlowThreshold(map) && isClearWeather;
+            bool isActive = StateHandler.IsActive(map);
             
             switch (isActive)
             {

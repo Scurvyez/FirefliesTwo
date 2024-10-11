@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<loadFolders>
+    <v1.5>
+        <li>/</li>
+        <li>1.5</li>
+        <li IfModActive="scurvyez.alienbiomes">1.5/AlienBiomes</li>
+        <li IfModActive="sarg.alphabiomes">1.5/AlphaBiomes</li>
+        <li IfModActive="biomesteam.oasis">1.5/BiomesOasis</li>
+        <li IfModActive="zylle.morevanillabiomes">1.5/MoreVanillaBiomes</li>
+    </v1.5>
+</loadFolders>
