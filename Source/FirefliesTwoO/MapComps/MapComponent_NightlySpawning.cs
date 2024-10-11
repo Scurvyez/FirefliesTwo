@@ -75,7 +75,7 @@ namespace FirefliesTwoO
             shapeModule.mesh = _spawnAreaMesh;
             UpdateParticleSystemParameters();
         }
-
+        
         public override void MapComponentUpdate()
         {
             if (!map.IsPlayerHome || _particleSystem == null) return;

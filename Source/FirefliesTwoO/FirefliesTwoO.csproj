@@ -69,7 +69,6 @@
     <Compile Include="AssetManagement\Textures.cs" />
     <Compile Include="Debugging\FFLog.cs" />
     <Compile Include="Debugging\MeshOverlayDrawer.cs" />
-    <Compile Include="Debugging\ModuleDebugger.cs" />
     <Compile Include="Defs\NightlySpawningExtension.cs" />
     <Compile Include="FFMod.cs" />
     <Compile Include="Harmony\Patches.cs" />
