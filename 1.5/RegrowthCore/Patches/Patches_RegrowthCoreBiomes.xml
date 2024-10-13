@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+    <Operation Class="PatchOperationAddModExtension">
+        <xpath>Defs/BiomeDef[defName="RG_TemperateGrassland"]</xpath>
+        <value>
+            <li Class="FirefliesTwoO.NightlySpawningExtension">
+                <biomeEmissionRate>1.6</biomeEmissionRate>
+            </li>
+        </value>
+    </Operation>
+
+</Patch>

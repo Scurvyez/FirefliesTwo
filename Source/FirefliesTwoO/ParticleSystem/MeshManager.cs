@@ -25,13 +25,10 @@ namespace FirefliesTwoO
             _validCells = [];
             _currentColumn = 0;
             _totalColumns = _map.Size.x;
-
-            //FFLog.Message("MeshManager initialized.");
         }
         
         public void Reset()
         {
-            //FFLog.Message("Resetting MeshManager.");
             _validCells.Clear();
             _currentColumn = 0;
         }
@@ -41,7 +38,6 @@ namespace FirefliesTwoO
             // Check if we've processed all columns
             if (_currentColumn >= _totalColumns)
             {
-                //FFLog.Message("All columns processed.");
                 return true;
             }
 
@@ -59,13 +55,11 @@ namespace FirefliesTwoO
 
             _validCells.AddRange(columnValidCells);
             _currentColumn++;
-            //FFLog.Message($"Moving to next column: {_currentColumn}");
             return false; // Still validating cells
         }
 
         public void ConstructMesh(Mesh mesh)
         {
-            //FFLog.Message($"Constructing mesh. Valid cells count: {_validCells.Count}");
             List<Vector3> vertices = [];
             List<int> triangles = [];
 
@@ -94,7 +88,6 @@ namespace FirefliesTwoO
             mesh.vertices = vertices.ToArray();
             mesh.triangles = triangles.ToArray();
             mesh.RecalculateNormals();
-            //FFLog.Message("Mesh construction complete.");
         }
     }
 }

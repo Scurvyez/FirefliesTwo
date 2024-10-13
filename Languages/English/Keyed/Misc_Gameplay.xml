@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
+    <!-- Settings -->
+    <FC_ModName>Fireflies 2</FC_ModName>
+    <FC_SpawnRateHeader>Biome Spawn Rates</FC_SpawnRateHeader>
+    <FC_Reset>Reset</FC_Reset>
+
+    <!-- Messages -->
+    <FF_SupportedBiomes>Supported biomes for firefly spawning: </FF_SupportedBiomes>
+    <FF_NoSupportedBiomes>No biomes support firefly spawning.</FF_NoSupportedBiomes>
+
     <!-- Jobs -->
     <FF_ChasingFireflies>chasing fireflies.</FF_ChasingFireflies>
 

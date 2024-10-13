@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+    <Operation Class="PatchOperationSequence">
+        <operations>
+            <li Class="PatchOperationAddModExtension">
+                <xpath>Defs/BiomeDef[defName="DankPyon_AncientForest"]</xpath>
+                <value>
+                    <li Class="FirefliesTwoO.NightlySpawningExtension">
+                        <biomeEmissionRate>1.6</biomeEmissionRate>
+                    </li>
+                </value>
+            </li>
+            <li Class="PatchOperationAddModExtension">
+                <xpath>Defs/BiomeDef[defName="DankPyon_DarkForest"]</xpath>
+                <value>
+                    <li Class="FirefliesTwoO.NightlySpawningExtension">
+                        <biomeEmissionRate>2.35</biomeEmissionRate>
+                    </li>
+                </value>
+            </li>
+        </operations>
+    </Operation>
+
+</Patch>

@@ -15,7 +15,6 @@ namespace FirefliesTwoO
         private const float ParticleAlpha = 2.5f;
 
         private NightlySpawningExtension _ext;
-        private float _biomeEmissionRateFactor;
         private ParticleSystem _particleSystem;
         private MeshManager _meshManager;
         private MapCellValidator _cellValidator;
@@ -38,7 +37,6 @@ namespace FirefliesTwoO
         {
             if (!map.Biome.HasModExtension<NightlySpawningExtension>()) return;
             _ext = map.Biome.GetModExtension<NightlySpawningExtension>();
-            _biomeEmissionRateFactor = _ext.biomeEmissionRate > 0f ? _ext.biomeEmissionRate : 1f;
         }
         
         public override void MapRemoved()
@@ -115,13 +113,16 @@ namespace FirefliesTwoO
                     }
                 }
 
+                string supportedBiomes = "FF_SupportedBiomes".Translate();
+                string noBiomes = "FF_NoSupportedBiomes".Translate();
+                
                 string message = allowedBiomes.Count > 0
-                    ? $"Supported biomes for firefly spawning: {string.Join(", ", allowedBiomes)}"
-                    : "No biomes support firefly spawning.";
+                    ? supportedBiomes + string.Join(", ", allowedBiomes)
+                    : noBiomes;
                 FFLog.Message(message);
             }
         }
-
+        
         private void ActivateParticleSystem()
         {
             StateHandler.SetParticleSystemState(_particleSystem, true);
@@ -149,12 +150,8 @@ namespace FirefliesTwoO
             
             int validCellsCount = _validEmissionCells.Count;
             float rawEmissionRate = validCellsCount * Mathf.Pow(EmissionRateBase, EmissionRatePower);
-            float biomeAdjustedEmissionRate = rawEmissionRate * _biomeEmissionRateFactor;
+            float biomeAdjustedEmissionRate = rawEmissionRate * BaseEmissionRateFactor();
             float finalEmissionRate = Mathf.Max(4, Mathf.FloorToInt(biomeAdjustedEmissionRate));
-            
-            FFLog.Message($"Raw Emission Rate (before biome factor): {rawEmissionRate}");
-            FFLog.Message($"Biome-Adjusted Emission Rate: {biomeAdjustedEmissionRate}");
-            FFLog.Message($"Final Emission Rate (after applying min cap): {finalEmissionRate}");
             
             emission.rateOverTime = finalEmissionRate;
         }
@@ -163,6 +160,15 @@ namespace FirefliesTwoO
         {
             ParticleSystem.MainModule main = _particleSystem.main;
             main.simulationSpeed = (float)Find.TickManager.CurTimeSpeed * 1f;
+        }
+        
+        private float BaseEmissionRateFactor()
+        {
+            if (FCMod.mod.settings.biomeSpawnRates.TryGetValue(map.Biome.defName, out float customBiomeEmissionRate))
+            {
+                return customBiomeEmissionRate > 0f ? customBiomeEmissionRate : 1f;
+            }
+            return _ext.biomeEmissionRate > 0f ? _ext.biomeEmissionRate : 1f;
         }
 
         public override void ExposeData()

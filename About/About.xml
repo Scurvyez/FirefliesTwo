@@ -22,6 +22,10 @@ This mod is about fireflies only. I might make a separate mod for more general a
 + [Alien Biomes (WIP)] Radiant Plains, Delirious Dunes, and Crystalline Flats
 + [Alpha Biomes] Feralisk Infested Jungle and Idyllic Meadows
 + [Biomes! Oasis] Chromatic Oasis
++ [Medieval Overhaul] Ancient Forest, Dark Forest
++ [Regrowth: Core] Temperate Grassland
++ [Regrowth: Aspen] Aspen Forest
++ [Regrowth: Boiling] Boiling Forest
 
 
 &lt;size=24&gt;Features&lt;/size&gt;
@@ -58,6 +62,11 @@ This mod is about fireflies only. I might make a separate mod for more general a
 
     <loadAfter>
         <li>Ludeon.RimWorld</li>
+        <li>scurvyez.alienbiomes</li>
+        <li>sarg.alphabiomes</li>
+        <li>biomesteam.oasis</li>
+        <li>dankpyon.medieval.overhaul</li>
+        <li>zylle.morevanillabiomes</li>
     </loadAfter>
 
 </ModMetaData>

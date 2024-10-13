@@ -6,6 +6,10 @@
         <li IfModActive="scurvyez.alienbiomes">1.5/AlienBiomes</li>
         <li IfModActive="sarg.alphabiomes">1.5/AlphaBiomes</li>
         <li IfModActive="biomesteam.oasis">1.5/BiomesOasis</li>
+        <li IfModActive="dankpyon.medieval.overhaul">1.5/MedievalOverhaul</li>
         <li IfModActive="zylle.morevanillabiomes">1.5/MoreVanillaBiomes</li>
+        <li IfModActive="regrowth.botr.core">1.5/RegrowthCore</li>
+        <li IfModActive="regrowth.botr.aspenforest">1.5/RegrowthAspen</li>
+        <li IfModActive="regrowth.botr.boilingforest">1.5/RegrowthBoiling</li>
     </v1.5>
 </loadFolders>

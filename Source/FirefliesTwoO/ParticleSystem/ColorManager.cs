@@ -42,7 +42,7 @@ namespace FirefliesTwoO
             }
             else
             {
-                FFLog.Message("No _Color property found on the particle material!");
+                FFLog.Warning("No _Color property found on the particle material!");
             }
         }
     }
