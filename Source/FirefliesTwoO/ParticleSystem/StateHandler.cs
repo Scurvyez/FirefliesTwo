@@ -6,17 +6,25 @@ namespace FirefliesTwoO
 {
     public static class StateHandler
     {
+        private static NightlySpawningExtension _ext;
+        private static Season _curSeason;
+
+        static StateHandler()
+        {
+            _ext = Find.CurrentMap.Biome.GetModExtension<NightlySpawningExtension>();
+        }
+        
         public static bool IsActive(Map map)
         {
-            if (map == null) return false;
+            if (map == null || _ext == null) return false;
+            _curSeason = GenLocalDate.Season(map);
             
-            Season currentSeason = GenLocalDate.Season(map);
-            if (currentSeason is Season.Winter or Season.PermanentWinter) return false;
-            if (map.mapTemperature.OutdoorTemp < FFDefOf.FF_Config.outdoorTempThreshold) return false;
-            
+            if (!_ext.biomeAllowInWinter && (_curSeason is Season.Winter or Season.PermanentWinter)) return false;
+            if (map.mapTemperature.OutdoorTemp > _ext.biomeAllowedTempRange.max ||
+                map.mapTemperature.OutdoorTemp < _ext.biomeAllowedTempRange.min) return false;
             float currentSunGlow = GenCelestial.CurCelestialSunGlow(map);
-            if (currentSunGlow > FFDefOf.FF_Config.sunGlowThreshold) return false;
             
+            if (currentSunGlow > FFDefOf.FF_Config.sunGlowThreshold) return false;
             return map.weatherManager.curWeather == WeatherDefOf.Clear;
         }
         

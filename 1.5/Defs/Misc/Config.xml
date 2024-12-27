@@ -6,7 +6,6 @@
 
         <particleSizeFactor>0.3</particleSizeFactor>
         <sunGlowThreshold>0.3</sunGlowThreshold>
-        <outdoorTempThreshold>5</outdoorTempThreshold>
 
         <!-- ParticleBuilder -->
         <shapeRandomDirectionAmount>0~360</shapeRandomDirectionAmount>

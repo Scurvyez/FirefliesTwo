@@ -6,6 +6,8 @@
         <value>
             <li Class="FirefliesTwoO.NightlySpawningExtension">
                 <biomeEmissionRate>1.2</biomeEmissionRate>
+                <biomeAllowedTempRange>-100~100</biomeAllowedTempRange>
+                <biomeAllowInWinter>false</biomeAllowInWinter>
             </li>
         </value>
     </Operation>

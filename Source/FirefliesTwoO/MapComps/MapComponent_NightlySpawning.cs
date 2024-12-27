@@ -13,7 +13,7 @@ namespace FirefliesTwoO
         private const float EmissionRateBase = 0.25f;
         private const float EmissionRatePower = 2.7f;
         private const float ParticleAlpha = 2.5f;
-
+        
         private NightlySpawningExtension _ext;
         private ParticleSystem _particleSystem;
         private MeshManager _meshManager;
@@ -24,7 +24,7 @@ namespace FirefliesTwoO
         private float _simulationSpeed;
         private int _mapID;
         private bool _allColumnsValidated;
-
+        
         public List<IntVec3> ValidEmissionCells => _validEmissionCells;
         private static bool DrawMeshNow => MeshOverlayDrawer.DrawFireflySpawnMesh;
         
@@ -140,7 +140,7 @@ namespace FirefliesTwoO
             _meshManager.Reset();
             _spawnAreaMesh.Clear();
         }
-
+        
         private void UpdateParticleSystemParameters()
         {
             ParticleSystem.MainModule main = _particleSystem.main;
@@ -155,7 +155,7 @@ namespace FirefliesTwoO
             
             emission.rateOverTime = finalEmissionRate;
         }
-
+        
         private void UpdateSimulationSpeed()
         {
             ParticleSystem.MainModule main = _particleSystem.main;
@@ -170,7 +170,7 @@ namespace FirefliesTwoO
             }
             return _ext.biomeEmissionRate > 0f ? _ext.biomeEmissionRate : 1f;
         }
-
+        
         public override void ExposeData()
         {
             base.ExposeData();

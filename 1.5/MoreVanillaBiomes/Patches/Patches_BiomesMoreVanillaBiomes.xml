@@ -8,6 +8,8 @@
                 <value>
                     <li Class="FirefliesTwoO.NightlySpawningExtension">
                         <biomeEmissionRate>1.2</biomeEmissionRate>
+                        <biomeAllowedTempRange>-100~100</biomeAllowedTempRange>
+                        <biomeAllowInWinter>false</biomeAllowInWinter>
                     </li>
                 </value>
             </li>
@@ -16,6 +18,8 @@
                 <value>
                     <li Class="FirefliesTwoO.NightlySpawningExtension">
                         <biomeEmissionRate>0.7</biomeEmissionRate>
+                        <biomeAllowedTempRange>-100~100</biomeAllowedTempRange>
+                        <biomeAllowInWinter>false</biomeAllowInWinter>
                     </li>
                 </value>
             </li>
@@ -24,6 +28,8 @@
                 <value>
                     <li Class="FirefliesTwoO.NightlySpawningExtension">
                         <biomeEmissionRate>0.25</biomeEmissionRate>
+                        <biomeAllowedTempRange>-100~100</biomeAllowedTempRange>
+                        <biomeAllowInWinter>false</biomeAllowInWinter>
                     </li>
                 </value>
             </li>
@@ -32,6 +38,8 @@
                 <value>
                     <li Class="FirefliesTwoO.NightlySpawningExtension">
                         <biomeEmissionRate>0.8</biomeEmissionRate>
+                        <biomeAllowedTempRange>-100~100</biomeAllowedTempRange>
+                        <biomeAllowInWinter>false</biomeAllowInWinter>
                     </li>
                 </value>
             </li>
@@ -40,6 +48,8 @@
                 <value>
                     <li Class="FirefliesTwoO.NightlySpawningExtension">
                         <biomeEmissionRate>0.8</biomeEmissionRate>
+                        <biomeAllowedTempRange>-100~100</biomeAllowedTempRange>
+                        <biomeAllowInWinter>false</biomeAllowInWinter>
                     </li>
                 </value>
             </li>
@@ -48,6 +58,8 @@
                 <value>
                     <li Class="FirefliesTwoO.NightlySpawningExtension">
                         <biomeEmissionRate>1.1</biomeEmissionRate>
+                        <biomeAllowedTempRange>-100~100</biomeAllowedTempRange>
+                        <biomeAllowInWinter>true</biomeAllowInWinter>
                     </li>
                 </value>
             </li>
