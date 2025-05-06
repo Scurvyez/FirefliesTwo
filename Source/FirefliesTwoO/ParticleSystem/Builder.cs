@@ -9,9 +9,11 @@ namespace FirefliesTwoO
         {
             GameObject fireflies = new($"firefly_system_{Mathf.Abs(mapID)}");
             //FFLog.Message($"New particle system created with name: {fireflies}.");
-            ParticleSystem particleSys = fireflies.GetComponent<ParticleSystem>() ?? fireflies.AddComponent<ParticleSystem>();
-            ParticleSystemRenderer renderer = fireflies.GetComponent<ParticleSystemRenderer>() ?? fireflies.AddComponent<ParticleSystemRenderer>();
-
+            ParticleSystem particleSys = fireflies.GetComponent<ParticleSystem>() 
+                                         ?? fireflies.AddComponent<ParticleSystem>();
+            ParticleSystemRenderer renderer = fireflies.GetComponent<ParticleSystemRenderer>() 
+                                              ?? fireflies.AddComponent<ParticleSystemRenderer>();
+            
             ConfigureParticleSystem(particleSys);
             ConfigureShapeModule(particleSys);
             ConfigureEmissionModule(particleSys);
@@ -22,7 +24,7 @@ namespace FirefliesTwoO
             Material material = new(GetParticleShader());
             //ConfigureTrailModule(particleSys, material);
             ConfigureRenderer(particleSys, material, Textures.Firefly);
-
+            
             return particleSys;
         }
 
@@ -33,7 +35,8 @@ namespace FirefliesTwoO
             mainModule.loop = true;
             mainModule.duration = Rand.Value;
             mainModule.startSize = 1f;
-            mainModule.startLifetime = new ParticleSystem.MinMaxCurve (1f, LifeTimeSetter.GetMinLifetimeCurve(), LifeTimeSetter.GetMaxLifetimeCurve());
+            mainModule.startLifetime = new ParticleSystem.MinMaxCurve(
+                1f, LifeTimeSetter.GetMinLifetimeCurve(), LifeTimeSetter.GetMaxLifetimeCurve());
             mainModule.startSpeed = new ParticleSystem.MinMaxCurve(1f, Random.Range(0.01f, 20f));
         }
 
@@ -49,7 +52,8 @@ namespace FirefliesTwoO
         private static void ConfigureEmissionModule(ParticleSystem particleSys)
         {
             ParticleSystem.EmissionModule emissionModule = particleSys.emission;
-            emissionModule.rateOverTime = emissionModule.rateOverTime with { mode = ParticleSystemCurveMode.Constant };
+            emissionModule.rateOverTime = emissionModule.rateOverTime 
+                with { mode = ParticleSystemCurveMode.Constant };
             emissionModule.enabled = true;
         }
         

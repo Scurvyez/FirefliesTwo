@@ -11,7 +11,8 @@ namespace FirefliesTwoO
 
         static StateHandler()
         {
-            _ext = Find.CurrentMap.Biome.GetModExtension<NightlySpawningExtension>();
+            _ext = Find.CurrentMap.Biome
+                .GetModExtension<NightlySpawningExtension>();
         }
         
         public static bool IsActive(Map map)
@@ -19,12 +20,18 @@ namespace FirefliesTwoO
             if (map == null || _ext == null) return false;
             _curSeason = GenLocalDate.Season(map);
             
-            if (!_ext.biomeAllowInWinter && (_curSeason is Season.Winter or Season.PermanentWinter)) return false;
-            if (map.mapTemperature.OutdoorTemp > _ext.biomeAllowedTempRange.max ||
-                map.mapTemperature.OutdoorTemp < _ext.biomeAllowedTempRange.min) return false;
-            float currentSunGlow = GenCelestial.CurCelestialSunGlow(map);
+            if (!_ext.biomeAllowInWinter 
+                && (_curSeason is Season.Winter or Season.PermanentWinter)) 
+                return false;
             
-            if (currentSunGlow > FFDefOf.FF_Config.sunGlowThreshold) return false;
+            if (map.mapTemperature.OutdoorTemp > _ext.biomeAllowedTempRange.max 
+                || map.mapTemperature.OutdoorTemp < _ext.biomeAllowedTempRange.min) 
+                return false;
+            
+            float currentSunGlow = GenCelestial.CurCelestialSunGlow(map);
+            if (currentSunGlow > FFDefOf.FF_Config.sunGlowThreshold) 
+                return false;
+            
             return map.weatherManager.curWeather == WeatherDefOf.Clear;
         }
         
@@ -34,7 +41,8 @@ namespace FirefliesTwoO
             Object.Destroy(particleSystem.gameObject);
         }
         
-        public static void RestoreParticleSystemState(ParticleSystem particleSystem, bool isSystemActive, float simulationSpeed)
+        public static void RestoreParticleSystemState(
+            ParticleSystem particleSystem, bool isSystemActive, float simulationSpeed)
         {
             if (particleSystem == null) return;
             particleSystem.gameObject.SetActive(isSystemActive);

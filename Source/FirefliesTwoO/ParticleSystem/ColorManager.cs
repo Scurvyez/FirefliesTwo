@@ -1,4 +1,6 @@
+using System.Linq;
 using UnityEngine;
+using Verse;
 
 namespace FirefliesTwoO
 {
@@ -10,7 +12,7 @@ namespace FirefliesTwoO
         public static readonly Color RedEmission = new (1.0f, 0.4f, 0.4f);
         public static readonly Color BlueEmission = new (0.6f, 0.8f, 1.0f);
         public static readonly Color PurpleEmission = new (0.8f, 0.6f, 1.0f);
-
+        
         private static readonly Gradient colorGradient = new ()
         {
             colorKeys =
@@ -30,20 +32,50 @@ namespace FirefliesTwoO
             ParticleSystem.MinMaxGradient gradientColor = new (colorGradient);
             mainModule.startColor = gradientColor;
         }
-
+        
         public static void SetParticleAlpha(ParticleSystem particleSys, float alphaFactor)
         {
             Renderer particleRenderer = particleSys.GetComponent<Renderer>();
-            if (particleRenderer != null && particleRenderer.material.HasProperty("_Color"))
+            if (particleRenderer != null 
+                && particleRenderer.material.HasProperty("_Color"))
             {
-                Color currentColor = particleRenderer.material.GetColor(Shader.PropertyToID("_Color"));
+                Color currentColor = particleRenderer.material
+                    .GetColor(Shader.PropertyToID("_Color"));
                 currentColor.a *= alphaFactor;
-                particleRenderer.material.SetColor(Shader.PropertyToID("_Color"), currentColor);
+                particleRenderer.material
+                    .SetColor(Shader.PropertyToID("_Color"), currentColor);
             }
             else
             {
                 FFLog.Warning("No _Color property found on the particle material!");
             }
+        }
+        
+        public static Color RandomWeightedColor()
+        {
+            (Color color, float weight)[] weightedColors = 
+            [
+                (GreenEmission, 3f),
+                (YellowEmission, 3f),
+                (OrangeEmission, 2f),
+                (RedEmission, 1.5f),
+                (BlueEmission, 1f),
+                (PurpleEmission, 0.5f)
+            ];
+            
+            float totalWeight = weightedColors.Sum(pair => pair.weight);
+            float random = Rand.Range(0f, totalWeight);
+            float cumulative = 0f;
+            
+            foreach ((Color color, float weight) pair in weightedColors)
+            {
+                cumulative += pair.weight;
+                if (random <= cumulative)
+                {
+                    return pair.color;
+                }
+            }
+            return YellowEmission;
         }
     }
 }

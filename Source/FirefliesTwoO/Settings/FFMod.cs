@@ -5,11 +5,11 @@ using Verse;
 
 namespace FirefliesTwoO
 {
-    public class FCMod : Mod
+    public class FFMod : Mod
     {
-        public static FCMod mod;
+        public static FFMod mod;
 
-        public FCSettings settings;
+        public FFSettings settings;
         private float _halfWidth;
         private Vector2 _leftScrollPos = Vector2.zero;
         private Vector2 _rightScrollPos = Vector2.zero;
@@ -23,10 +23,10 @@ namespace FirefliesTwoO
         private const float _textFieldWidth = 100f;
         private const float _elementHeight = 30f;
 
-        public FCMod(ModContentPack content) : base(content)
+        public FFMod(ModContentPack content) : base(content)
         {
             mod = this;
-            settings = GetSettings<FCSettings>();
+            settings = GetSettings<FFSettings>();
         }
 
         public override void DoSettingsWindowContents(Rect inRect)
@@ -37,7 +37,7 @@ namespace FirefliesTwoO
 
         public override string SettingsCategory()
         {
-            return "FC_ModName".Translate();
+            return "FF_ModName".Translate();
         }
 
         private void LeftSideScrollViewHandler(Rect inRect)
@@ -55,7 +55,7 @@ namespace FirefliesTwoO
             list1.Begin(vROffset1);
             list1.Gap(_newSectionGap);
             
-            list1.Label("FC_SpawnRateHeader".Translate().Colorize(_headerTextColor));
+            list1.Label("FF_SpawnRateHeader".Translate().Colorize(_headerTextColor));
             list1.Gap(_headerTextGap);
 
             foreach (BiomeDef biomeDef in DefDatabase<BiomeDef>.AllDefsListForReading)
@@ -104,7 +104,7 @@ namespace FirefliesTwoO
             Widgets.Label(valueLabelRect, settingFloat.ToString("F1"));
             
             Rect resetButtonRect = new(sliderWidth + _spacing, labelRect.y, 50f, _elementHeight);
-            if (Widgets.ButtonText(resetButtonRect, "FC_Reset".Translate()))
+            if (Widgets.ButtonText(resetButtonRect, "FF_Reset".Translate()))
             {
                 settingFloat = Convert.ToSingle(defaultValue);
                 settingValue = (T)Convert.ChangeType(settingFloat, typeof(T));

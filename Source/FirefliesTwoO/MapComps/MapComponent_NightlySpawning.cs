@@ -26,16 +26,19 @@ namespace FirefliesTwoO
         private bool _allColumnsValidated;
         
         public List<IntVec3> ValidEmissionCells => _validEmissionCells;
+        public List<IntVec3> ValidChaseCells { get; set; }
         private static bool DrawMeshNow => MeshOverlayDrawer.DrawFireflySpawnMesh;
+        private static bool DrawChaseCellsNow => MeshOverlayDrawer.DrawValidChaseCells;
         
         public MapComponent_NightlySpawning(Map map) : base(map)
         {
             LongEventHandler.ExecuteWhenFinished(InitializeMapSystems);
         }
-
+        
         public override void FinalizeInit()
         {
-            if (!map.Biome.HasModExtension<NightlySpawningExtension>()) return;
+            if (!map.Biome.HasModExtension<NightlySpawningExtension>()) 
+                return;
             _ext = map.Biome.GetModExtension<NightlySpawningExtension>();
         }
         
@@ -79,13 +82,23 @@ namespace FirefliesTwoO
             if (!map.IsPlayerHome || _particleSystem == null) return;
             UpdateSimulationSpeed();
 
-            if (!DrawMeshNow) return;
-            if (_validEmissionCells is { Count: > 0 })
+            if (DrawMeshNow)
             {
-                MeshOverlayDrawer.DrawMeshArea(_validEmissionCells);
+                if (_validEmissionCells is { Count: > 0 })
+                {
+                    MeshOverlayDrawer.DrawMeshArea(_validEmissionCells, ColorManager.BlueEmission);
+                }
+            }
+            
+            if (DrawChaseCellsNow)
+            {
+                if (ValidChaseCells is { Count: > 0 })
+                {
+                    MeshOverlayDrawer.DrawMeshArea(ValidChaseCells, ColorManager.RedEmission);
+                }
             }
         }
-
+        
         private void InitializeMapSystems()
         {
             if (_particleSystem != null) return;
@@ -114,11 +127,11 @@ namespace FirefliesTwoO
                 }
 
                 string supportedBiomes = "FF_SupportedBiomes".Translate();
-                string noBiomes = "FF_NoSupportedBiomes".Translate();
+                string noSupportedBiomes = "FF_NoSupportedBiomes".Translate();
                 
                 string message = allowedBiomes.Count > 0
                     ? supportedBiomes + string.Join(", ", allowedBiomes)
-                    : noBiomes;
+                    : noSupportedBiomes;
                 FFLog.Message(message);
             }
         }
@@ -164,7 +177,7 @@ namespace FirefliesTwoO
         
         private float BaseEmissionRateFactor()
         {
-            if (FCMod.mod.settings.biomeSpawnRates.TryGetValue(map.Biome.defName, out float customBiomeEmissionRate))
+            if (FFMod.mod.settings.biomeSpawnRates.TryGetValue(map.Biome.defName, out float customBiomeEmissionRate))
             {
                 return customBiomeEmissionRate > 0f ? customBiomeEmissionRate : 1f;
             }

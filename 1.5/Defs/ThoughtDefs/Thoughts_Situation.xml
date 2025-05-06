@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-    <ThoughtDef>
-        <defName>FF_SawFireflies</defName>
-        <durationDays>0.15</durationDays>
+    <ThoughtDef Name="FF_BaseFireflyThought" Abstract="True">
+        <durationDays>0.5</durationDays>
         <nullifyingTraits>
             <li>Psychopath</li>
             <li>Undergrounder</li>
@@ -13,6 +12,11 @@
             <li MayRequire="Ludeon.RimWorld.Ideology">Blindness_Elevated</li>
             <li MayRequire="Ludeon.RimWorld.Ideology">Blindness_Sublime</li>
         </nullifyingPrecepts>
+    </ThoughtDef>
+    
+    <ThoughtDef ParentName="FF_BaseFireflyThought">
+        <defName>FF_SawFireflies</defName>
+        <durationDays>0.15</durationDays>
         <stages>
             <li>
                 <label>Saw fireflies</label>
@@ -21,19 +25,20 @@
             </li>
         </stages>
     </ThoughtDef>
+    
+    <ThoughtDef ParentName="FF_BaseFireflyThought">
+        <defName>FF_ChasedFireflies</defName>
+        <stages>
+            <li>
+                <label>Chased fireflies</label>
+                <description>Hopefully I can do that again tomorrow!</description>
+                <baseMoodEffect>3</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
 
-    <ThoughtDef>
+    <ThoughtDef ParentName="FF_BaseFireflyThought">
         <defName>FF_CaughtAFirefly</defName>
-        <durationDays>0.55</durationDays>
-        <nullifyingTraits>
-            <li>Psychopath</li>
-            <li>Undergrounder</li>
-        </nullifyingTraits>
-        <nullifyingPrecepts>
-            <li MayRequire="Ludeon.RimWorld.Ideology">Blindness_Respected</li>
-            <li MayRequire="Ludeon.RimWorld.Ideology">Blindness_Elevated</li>
-            <li MayRequire="Ludeon.RimWorld.Ideology">Blindness_Sublime</li>
-        </nullifyingPrecepts>
         <stages>
             <li>
                 <label>Caught a firefly</label>
@@ -43,12 +48,8 @@
         </stages>
     </ThoughtDef>
 
-    <ThoughtDef>
+    <ThoughtDef ParentName="FF_BaseFireflyThought">
         <defName>FF_SquishedAFirefly</defName>
-        <durationDays>0.5</durationDays>
-        <nullifyingTraits>
-            <li>Psychopath</li>
-        </nullifyingTraits>
         <stages>
             <li>
                 <label>Squished a firefly</label>

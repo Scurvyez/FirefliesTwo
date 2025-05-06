@@ -3,15 +3,15 @@ using Verse;
 
 namespace FirefliesTwoO
 {
-    public class FCSettings : ModSettings
+    public class FFSettings : ModSettings
     {
-        private static FCSettings _instance;
+        private static FFSettings _instance;
 
         public Dictionary<string, float> biomeSpawnRates = new();
         private List<string> biomeKeys;
         private List<float> spawnRateValues;
         
-        public FCSettings()
+        public FFSettings()
         {
             _instance = this;
         }

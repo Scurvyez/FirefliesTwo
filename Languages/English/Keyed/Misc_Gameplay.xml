@@ -2,9 +2,9 @@
 <LanguageData>
 
     <!-- Settings -->
-    <FC_ModName>Fireflies 2</FC_ModName>
-    <FC_SpawnRateHeader>Biome Spawn Rates</FC_SpawnRateHeader>
-    <FC_Reset>Reset</FC_Reset>
+    <FF_ModName>Fireflies 2</FF_ModName>
+    <FF_SpawnRateHeader>Biome Spawn Rates</FF_SpawnRateHeader>
+    <FF_Reset>Reset</FF_Reset>
 
     <!-- Messages -->
     <FF_SupportedBiomes>Supported biomes for firefly spawning: </FF_SupportedBiomes>
@@ -12,5 +12,9 @@
 
     <!-- Jobs -->
     <FF_ChasingFireflies>chasing fireflies.</FF_ChasingFireflies>
+    
+    <!-- Gizmos -->
+    <FF_HorizontalOffset>Horizontal Offset</FF_HorizontalOffset>
+    <FF_VerticalOffset>Vertical Offset</FF_VerticalOffset>
 
 </LanguageData>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    
+    <ThingDef ParentName="ArtableFurnitureBase">
+        <defName>FF_JarGlassA</defName>
+        <label>glass jar</label>
+        <description>Decorative glass jar that contains a single firefly. It brings life to the room it occupies.</description>
+        <thingClass>FirefliesTwoO.Building_AdjustableDraw</thingClass>
+        <tickerType>Normal</tickerType>
+        <drawerType>RealtimeOnly</drawerType>
+        <uiIconPath>Things/FireflyJarGlassA_Icon</uiIconPath>
+        <minifiedDef>MinifiedThing</minifiedDef>
+        <clearBuildingArea>false</clearBuildingArea>
+        <passability>Standable</passability>
+        <pathCost>4</pathCost>
+        <rotatable>false</rotatable>
+        <fillPercent>0.1</fillPercent>
+        <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+        <resourcesFractionWhenDeconstructed>0</resourcesFractionWhenDeconstructed>
+        <designationCategory>Furniture</designationCategory>
+        <statBases>
+            <MaxHitPoints>5</MaxHitPoints>
+            <WorkToBuild>75</WorkToBuild>
+            <Flammability>0</Flammability>
+            <Beauty>1</Beauty>
+            <Mass>0.05</Mass>
+        </statBases>
+        <costList>
+            <WoodLog>1</WoodLog>
+        </costList>
+        <building>
+            <isEdifice>false</isEdifice>
+        </building>
+        <graphicData>
+            <graphicClass>Graphic_Single</graphicClass>
+            <shaderType>Transparent</shaderType>
+            <texPath>Things/FireflyJarGlassA</texPath>
+            <drawSize>(1, 1)</drawSize>
+        </graphicData>
+        <comps>
+            <li Class="FirefliesTwoO.CompProperties_AdjustableDrawPos">
+                <offsetStep>0.025</offsetStep>
+            </li>
+            <li Class="FirefliesTwoO.CompProperties_DrawFireflyGraphic">
+                <fireFlyGraphic>
+                    <graphicClass>Graphic_Single</graphicClass>
+                    <shaderType>TransparentPostLight</shaderType>
+                    <texPath>Things/FireflyInJar</texPath>
+                    <drawSize>(1, 1)</drawSize>
+                </fireFlyGraphic>
+                <maxOffsetFactorX>0.212</maxOffsetFactorX>
+                <maxOffsetFactorZ>0.12</maxOffsetFactorZ>
+            </li>
+            <li Class="FirefliesTwoO.CompProperties_DrawAdditionalGraphicsAdjustable">
+                <graphics>
+                    <li>
+                        <graphicClass>Graphic_Single</graphicClass>
+                        <shaderType>Transparent</shaderType>
+                        <renderQueue>3160</renderQueue>
+                        <texPath>Things/FireflyJarGlassA_LidString</texPath>
+                        <drawSize>(1, 1)</drawSize>
+                        <drawOffset>(0, 0.2, 0)</drawOffset>
+                    </li>
+                </graphics>
+            </li>
+        </comps>
+    </ThingDef>
+    
+</Defs>
