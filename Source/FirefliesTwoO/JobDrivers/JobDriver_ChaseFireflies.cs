@@ -12,6 +12,7 @@ namespace FirefliesTwoO
         private int _randomTickInterval;
         private int _waitCounter = 0;
         private bool _waitingAtCell = false;
+        private Mote _bugnetMote;
         
         private const TargetIndex DestCellInd = TargetIndex.A;
         private const int ChaseRadius = 10;
@@ -57,6 +58,7 @@ namespace FirefliesTwoO
                 tickAction = () =>
                 {
                     ChaseFirefliesToilTickAction(mapComp);
+                    TryDoChaseEffect();
                 }
             };
             chaseFireflies.FailOn(() => pawn.Position.Roofed(pawn.Map));
@@ -76,12 +78,12 @@ namespace FirefliesTwoO
         {
             _tickCounter = 0;
             _randomTickInterval = Rand.RangeInclusive(ChaseTicksMin, ChaseTicksMax);
-                    
+            
             List<IntVec3> chaseCells = MapCellFinder
                 .TryGetValidEmissionCellsInRadius(
                     mapComp, pawn, centerCell, ChaseRadius);
             mapComp.ValidChaseCells = chaseCells;
-                    
+            
             if (chaseCells.NullOrEmpty())
             {
                 EndJobWith(JobCondition.Incompletable);
@@ -122,16 +124,31 @@ namespace FirefliesTwoO
                 _waitCounter = 0;
             }
         }
+
+        private void TryDoChaseEffect()
+        {
+            float yOffset = (pawn.Position.x % 2 + pawn.Position.z % 2) / 10f;
+            if (_bugnetMote == null || _bugnetMote.Destroyed)
+            {
+                _bugnetMote = MoteMaker.MakeAttachedOverlay(pawn, 
+                    FFDefOf.FF_Mote_BugNet, Vector3.zero);
+                _bugnetMote.yOffset = yOffset;
+            }
+            _bugnetMote.Maintain();
+        }
         
         private void FireflyCatchAttempt()
         {
             ThoughtDef thoughtToGain;
+            bool caught = false;
+            
             if (Rand.Chance(FFDefOf.FF_Config.caughtAFireflyChance))
             {
                 float baseChance = JobDriverUtils.CalculateCatchChance(pawn);
-                float finalChanceToCatch = Mathf.Clamp(baseChance, 0.1f, 1.0f);
-            
-                thoughtToGain = Rand.Chance(finalChanceToCatch)
+                float finalChanceToCatch = Mathf.Clamp01(baseChance);
+                
+                caught = Rand.Chance(finalChanceToCatch);
+                thoughtToGain = caught
                     ? FFDefOf.FF_CaughtAFirefly 
                     : FFDefOf.FF_SquishedAFirefly;
             }
@@ -140,10 +157,17 @@ namespace FirefliesTwoO
                 thoughtToGain = FFDefOf.FF_ChasedFireflies;
             }
             
-            if (thoughtToGain == null)
+            if (thoughtToGain != null)
+            {
+                pawn.needs?.mood?.thoughts?.memories?.TryGainMemory(thoughtToGain);
+            }
+            
+            ThingDef fireflyDef = FFDefOf.FF_JarGlassA;
+            if (!caught || pawn.inventory.innerContainer.Contains(fireflyDef, 1)) 
                 return;
             
-            pawn.needs?.mood?.thoughts?.memories?.TryGainMemory(thoughtToGain);
+            Thing firefly = ThingMaker.MakeThing(fireflyDef);
+            pawn.inventory?.innerContainer?.TryAdd(firefly);
         }
     }
 }

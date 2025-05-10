@@ -16,8 +16,8 @@ namespace FirefliesTwoO
         public static TraitDef Nimble;
         public static TraitDef NightOwl;
 
+        public static ThingDef FF_Mote_BugNet;
         public static ThingDef FF_JarGlassA;
-        public static ThingDef EndTable;
         
         static FFDefOf()
         {

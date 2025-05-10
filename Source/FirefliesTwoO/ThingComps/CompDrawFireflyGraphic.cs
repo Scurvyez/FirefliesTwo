@@ -60,15 +60,15 @@ namespace FirefliesTwoO
                 _currentAlpha = flickerStep < 0.5f 
                     ? Mathf.SmoothStep(0f, 1f, flickerStep * 2f) 
                     : Mathf.SmoothStep(1f, 0f, (flickerStep - 0.5f) * 2f);
-
+                
                 if (flickerProgress < _flickerDuration) 
                     return;
                 
                 _isFlickering = false;
                 _currentAlpha = 0f;
-                _nextFlickerTick = ticksGame + Rand.RangeInclusive(90, 2400);
+                _nextFlickerTick = Props.nextFlickerTick.RandomInRange;
             }
-            else if (ticksGame >= _nextFlickerTick && parent.IsHashIntervalTick(1))
+            else if (ticksGame >= _nextFlickerTick && parent.IsHashIntervalTick(120))
             {
                 BeginNewFlicker();
             }
@@ -115,7 +115,7 @@ namespace FirefliesTwoO
             }
             
             drawPos.x += interpX;
-            drawPos.z += interpZ - 0.12f;
+            drawPos.z += interpZ - Props.initialOffsetZ;
             
             _mpb.Clear();
             
@@ -135,14 +135,14 @@ namespace FirefliesTwoO
             _endOffset = new Vector2(unitCircle.x * _maxOffsetX, unitCircle.y * _maxOffsetZ);
             _controlPoint = (_startOffset + _endOffset) * 0.5f + Rand.UnitVector2 * 0.1f;
             _transitionStartTick = Find.TickManager.TicksGame;
-            _transitionDuration = Rand.RangeInclusive(20, 210);
+            _transitionDuration = Props.transitionDuration.RandomInRange;
         }
         
         private void BeginNewFlicker()
         {
             _isFlickering = true;
             _flickerStartTick = Find.TickManager.TicksGame;
-            _flickerDuration = Rand.RangeInclusive(60, 180);
+            _flickerDuration = Props.flickerDuration.RandomInRange;
         }
         
         public override void PostExposeData()

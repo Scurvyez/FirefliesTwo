@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    
+    <ThingDef ParentName="MoteBase">
+        <defName>FF_Mote_BugNet</defName>
+        <thingClass>MoteThrownAttached</thingClass>
+        <altitudeLayer>MetaOverlays</altitudeLayer>
+        <mote>
+            <fadeInTime>0.1</fadeInTime>
+            <fadeOutTime>0.1</fadeOutTime>
+            <solidTime>999999</solidTime>
+            <needsMaintenance>True</needsMaintenance>
+            <attachedDrawOffset>(0.65, 0, 0.4)</attachedDrawOffset>
+        </mote>
+        <graphicData>
+            <texPath>Things/BugNet</texPath>
+        </graphicData>
+    </ThingDef>
+    
+</Defs>

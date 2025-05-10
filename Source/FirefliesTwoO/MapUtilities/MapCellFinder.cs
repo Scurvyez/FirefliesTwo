@@ -6,8 +6,8 @@ namespace FirefliesTwoO
 {
     public static class MapCellFinder
     {
-        public static bool TryFindRandomEmissionCell(
-            MapComponent_NightlySpawning mapComp, Pawn pawn, out IntVec3 result)
+        public static bool TryFindRandomEmissionCell(MapComponent_NightlySpawning mapComp, 
+            Pawn pawn, out IntVec3 result, float? maxDistance = 50f)
         {
             result = IntVec3.Invalid;
             if (mapComp == null || mapComp.ValidEmissionCells.NullOrEmpty())
@@ -15,6 +15,7 @@ namespace FirefliesTwoO
             
             foreach (IntVec3 cell in mapComp.ValidEmissionCells.InRandomOrder())
             {
+                if (pawn.Position.DistanceTo(cell) > maxDistance) continue;
                 if (!cell.Standable(pawn.Map)) continue;
                 if (!pawn.CanReach(cell, PathEndMode.OnCell, Danger.None)) 
                     continue;

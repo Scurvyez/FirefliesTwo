@@ -5,8 +5,12 @@ namespace FirefliesTwoO
     public class CompProperties_DrawFireflyGraphic : CompProperties
     {
         public GraphicData fireFlyGraphic;
+        public IntRange nextFlickerTick = IntRange.one;
+        public IntRange transitionDuration = IntRange.one;
+        public IntRange flickerDuration = IntRange.one;
         public float maxOffsetFactorX = 1;
         public float maxOffsetFactorZ = 1;
+        public float initialOffsetZ = 0.12f;
         
         public CompProperties_DrawFireflyGraphic()
         {
