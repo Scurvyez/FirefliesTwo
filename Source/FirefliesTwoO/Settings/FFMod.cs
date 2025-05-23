@@ -28,6 +28,8 @@ namespace FirefliesTwoO
             mod = this;
             settings = GetSettings<FFSettings>();
         }
+        
+        public override string SettingsCategory() => "FF_ModName".Translate();
 
         public override void DoSettingsWindowContents(Rect inRect)
         {
@@ -35,16 +37,12 @@ namespace FirefliesTwoO
             LeftSideScrollViewHandler(new Rect(inRect.x, inRect.y, _halfWidth, inRect.height));
         }
 
-        public override string SettingsCategory()
-        {
-            return "FF_ModName".Translate();
-        }
-
         private void LeftSideScrollViewHandler(Rect inRect)
         {
             Listing_Standard list1 = new();
 
-            int biomeCount = DefDatabase<BiomeDef>.AllDefsListForReading.Count(b => b.HasModExtension<NightlySpawningExtension>());
+            int biomeCount = DefDatabase<BiomeDef>.AllDefsListForReading
+                .Count(b => b.HasModExtension<NightlySpawningExtension>());
             float biomeSectionHeight = _elementHeight + _spacing;
             float totalHeight = biomeCount * (biomeSectionHeight * 2f);
 

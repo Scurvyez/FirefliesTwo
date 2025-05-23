@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
+    
+    <!-- 
+    TODO: maybe make a new joy kind for both of these instead of meditation?
+    -->
 
     <JoyGiverDef>
         <defName>FF_ChaseFireflies</defName>
@@ -15,12 +19,6 @@
             <li>Manipulation</li>
         </requiredCapacities>
     </JoyGiverDef>
-    
-    <!-- 
-    TODO: make a new one for watching fireflies in jars!
-    TODO: maybe make a new joy kind for this one as well instead of meditation?
-    TODO: maybe same for the one above too actually lol
-    -->
     
     <JoyGiverDef>
         <defName>FF_WatchFirefliesInJar</defName>

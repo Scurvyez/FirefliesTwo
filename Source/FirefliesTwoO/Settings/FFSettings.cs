@@ -20,7 +20,8 @@ namespace FirefliesTwoO
         {
             base.ExposeData();
             biomeSpawnRates ??= new Dictionary<string, float>();
-            Scribe_Collections.Look(ref biomeSpawnRates, "biomeSpawnRates", LookMode.Value, LookMode.Value, ref biomeKeys, ref spawnRateValues);
+            Scribe_Collections.Look(ref biomeSpawnRates, "biomeSpawnRates", 
+                LookMode.Value, LookMode.Value, ref biomeKeys, ref spawnRateValues);
         }
     }
 }
