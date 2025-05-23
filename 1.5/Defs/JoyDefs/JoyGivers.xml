@@ -11,6 +11,7 @@
         <joyKind>Meditative</joyKind>
         <requiredCapacities>
             <li>Moving</li>
+            <li>Sight</li>
             <li>Manipulation</li>
         </requiredCapacities>
     </JoyGiverDef>
@@ -20,5 +21,18 @@
     TODO: maybe make a new joy kind for this one as well instead of meditation?
     TODO: maybe same for the one above too actually lol
     -->
+    
+    <JoyGiverDef>
+        <defName>FF_WatchFirefliesInJar</defName>
+        <giverClass>FirefliesTwoO.JoyGiver_WatchFirefliesInJar</giverClass>
+        <baseChance>2.75</baseChance>
+        <canDoWhileInBed>true</canDoWhileInBed>
+        <jobDef>FF_WatchFirefliesInJar</jobDef>
+        <joyKind>Meditative</joyKind>
+        <requiredCapacities>
+            <li>Moving</li>
+            <li>Sight</li>
+        </requiredCapacities>
+    </JoyGiverDef>
 
 </Defs>

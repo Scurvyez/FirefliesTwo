@@ -3,17 +3,26 @@
     
     <ThingDef ParentName="MoteBase">
         <defName>FF_Mote_BugNet</defName>
-        <thingClass>MoteThrownAttached</thingClass>
-        <altitudeLayer>MetaOverlays</altitudeLayer>
+        <thingClass>MoteAttached</thingClass>
+        <altitudeLayer>MoteOverhead</altitudeLayer>
+        <rotatable>true</rotatable>
         <mote>
             <fadeInTime>0.1</fadeInTime>
             <fadeOutTime>0.1</fadeOutTime>
             <solidTime>999999</solidTime>
-            <needsMaintenance>True</needsMaintenance>
-            <attachedDrawOffset>(0.65, 0, 0.4)</attachedDrawOffset>
+            <needsMaintenance>true</needsMaintenance>
+            <rotateTowardsTarget>true</rotateTowardsTarget>
+            <updateOffsetToMatchTargetRotation>true</updateOffsetToMatchTargetRotation>
+            <yFightingOffsetScalar01>0</yFightingOffsetScalar01>
         </mote>
         <graphicData>
             <texPath>Things/BugNet</texPath>
+            <graphicClass>Graphic_Multi_Mote</graphicClass>
+            <shaderType>Transparent</shaderType>
+            <drawOffsetEast>(0.65, 0, 0.4)</drawOffsetEast>
+            <drawOffsetWest>(-0.65, -3, 0.4)</drawOffsetWest>
+            <drawOffsetNorth>(0.5, -3, 0.4)</drawOffsetNorth>
+            <drawOffsetSouth>(-0.5, 0, 0.4)</drawOffsetSouth>
         </graphicData>
     </ThingDef>
     

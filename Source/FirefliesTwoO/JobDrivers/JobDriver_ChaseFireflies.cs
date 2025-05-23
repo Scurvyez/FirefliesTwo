@@ -15,10 +15,10 @@ namespace FirefliesTwoO
         private Mote _bugnetMote;
         
         private const TargetIndex DestCellInd = TargetIndex.A;
-        private const int ChaseRadius = 10;
+        private const int ChaseRadius = 6;
         private const int ChaseTicksMin = 30;
         private const int ChaseTicksMax = 120;
-        private const int WaitTicksAtCell = 120;
+        private const int WaitTicksAtCell = 60;
         
         public override string GetReport() => "FF_ChasingFireflies".Translate();
         
@@ -93,7 +93,7 @@ namespace FirefliesTwoO
         private void ChaseFirefliesToilTickAction(MapComponent_NightlySpawning mapComp)
         {
             float joyGainFactor = pawn.story.traits
-                .HasTrait(FFDefOf.NightOwl) ? 0.62f : 0.475f;
+                .HasTrait(FFDefOf.NightOwl) ? 1.45f : 1f;
             JoyUtility.JoyTickCheckEnd(pawn, 
                 JoyTickFullJoyAction.EndJob, joyGainFactor);
             
@@ -124,7 +124,7 @@ namespace FirefliesTwoO
                 _waitCounter = 0;
             }
         }
-
+        
         private void TryDoChaseEffect()
         {
             float yOffset = (pawn.Position.x % 2 + pawn.Position.z % 2) / 10f;
@@ -132,6 +132,7 @@ namespace FirefliesTwoO
             {
                 _bugnetMote = MoteMaker.MakeAttachedOverlay(pawn, 
                     FFDefOf.FF_Mote_BugNet, Vector3.zero);
+                _bugnetMote.link1.rotateWithTarget = true;
                 _bugnetMote.yOffset = yOffset;
             }
             _bugnetMote.Maintain();

@@ -14,7 +14,7 @@ namespace FirefliesTwoO
         
         public override Job TryGiveJob(Pawn pawn)
         {
-            MapComponent_NightlySpawning mapComp = pawn.Map
+            MapComponent_NightlySpawning mapComp = pawn?.Map
                 .GetComponent<MapComponent_NightlySpawning>();
             
             if (mapComp is not { ParticlesSpawned: true }
@@ -24,7 +24,7 @@ namespace FirefliesTwoO
             }
             
             return !MapCellFinder.TryFindRandomEmissionCell(
-                mapComp, pawn, out IntVec3 result) 
+                mapComp, pawn, out IntVec3 result, 45f) 
                 ? null 
                 : JobMaker.MakeJob(def.jobDef, result);
         }

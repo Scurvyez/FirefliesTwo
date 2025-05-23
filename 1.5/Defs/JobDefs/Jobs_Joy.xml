@@ -9,5 +9,14 @@
         <joyKind>Meditative</joyKind>
         <isCrawlingIfDowned>false</isCrawlingIfDowned>
     </JobDef>
+    
+    <JobDef>
+        <defName>FF_WatchFirefliesInJar</defName>
+        <driverClass>JobDriver_ViewArt</driverClass>
+        <reportString>observing fireflies.</reportString>
+        <joyDuration>4000</joyDuration>
+        <joyKind>Meditative</joyKind>
+        <isCrawlingIfDowned>false</isCrawlingIfDowned>
+    </JobDef>
 
 </Defs>

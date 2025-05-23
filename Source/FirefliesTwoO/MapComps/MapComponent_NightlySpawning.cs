@@ -150,8 +150,8 @@ namespace FirefliesTwoO
             _isSystemActive = false;
             _allColumnsValidated = false;
             _validEmissionCells?.Clear();
-            _meshManager.Reset();
-            _spawnAreaMesh.Clear();
+            _meshManager?.Reset();
+            _spawnAreaMesh?.Clear();
         }
         
         private void UpdateParticleSystemParameters()
@@ -177,7 +177,8 @@ namespace FirefliesTwoO
         
         private float BaseEmissionRateFactor()
         {
-            if (FFMod.mod.settings.biomeSpawnRates.TryGetValue(map.Biome.defName, out float customBiomeEmissionRate))
+            if (FFMod.mod.settings.biomeSpawnRates
+                .TryGetValue(map.Biome.defName, out float customBiomeEmissionRate))
             {
                 return customBiomeEmissionRate > 0f ? customBiomeEmissionRate : 1f;
             }

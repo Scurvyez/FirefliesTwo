@@ -76,14 +76,12 @@ namespace FirefliesTwoO
         
         public override void PostDraw()
         {
-            if (Props.fireFlyGraphic == null)
-                return;
-            
+            if (Props.fireFlyGraphic == null) return;
             if (_fireflyMat == null)
             {
                 _fireflyMat = Props.fireFlyGraphic.Graphic.MatSingle;
             }
-
+            
             Vector3 drawPos = parent.DrawPos;
             if (parent is {  } twc)
             {
@@ -128,6 +126,13 @@ namespace FirefliesTwoO
                 _fireflyMat, 0, null, 0, _mpb);
         }
         
+        public override string CompInspectStringExtra()
+        {
+            string colorName = ColorManager.GetColorName(_fireflyColor);
+            string colorString = $"Contained firefly: {colorName}";
+            return base.CompInspectStringExtra() + colorString;
+        }
+        
         private void BeginNewFlutter()
         {
             _startOffset = _endOffset;
@@ -148,7 +153,7 @@ namespace FirefliesTwoO
         public override void PostExposeData()
         {
             base.PostExposeData();
-            Scribe_Values.Look(ref _fireflyColor, "_fireflyColor");
+            Scribe_Values.Look(ref _fireflyColor, "_fireflyColor", ColorManager.YellowEmission);
             Scribe_Values.Look(ref _flickerStartTick, "_flickerStartTick");
             Scribe_Values.Look(ref _flickerDuration, "_flickerDuration", 90);
             Scribe_Values.Look(ref _nextFlickerTick, "_nextFlickerTick");

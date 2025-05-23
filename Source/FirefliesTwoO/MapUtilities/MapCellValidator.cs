@@ -12,7 +12,15 @@ namespace FirefliesTwoO
         {
             _map = map;
         }
-        
+
+        /// Determines if a specific <see cref="Map"/> cell is valid for particle emission in a mesh,
+        /// based on several environmental and positional criteria.
+        /// <param name="position">
+        /// The positional coordinates in the <see cref="Map"/> (in 3D) to validate for particle emission.
+        /// </param>
+        /// <returns>
+        /// Returns true if the cell meets all conditions for particle emission, otherwise false.
+        /// </returns>
         public bool IsCellValidForParticleEmissionMesh(Vector3 position)
         {
             IntVec3 intVecPosition = position.ToIntVec3();                           // ~0.1 ms

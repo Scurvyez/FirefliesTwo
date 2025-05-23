@@ -47,7 +47,7 @@ namespace FirefliesTwoO
             }
             else
             {
-                FFLog.Warning("No _Color property found on the particle material!");
+                FFLog.Warning("No _Color property found on particle material!");
             }
         }
         
@@ -77,5 +77,23 @@ namespace FirefliesTwoO
             }
             return YellowEmission;
         }
+        
+        private static bool Approx(Color a, Color b, float tolerance = 0.01f)
+        {
+            return Mathf.Abs(a.r - b.r) < tolerance &&
+                   Mathf.Abs(a.g - b.g) < tolerance &&
+                   Mathf.Abs(a.b - b.b) < tolerance;
+        }
+        
+        public static string GetColorName(Color color) => color switch
+        {
+            _ when Approx(color, GreenEmission) => "Green",
+            _ when Approx(color, YellowEmission) => "Yellow",
+            _ when Approx(color, OrangeEmission) => "Orange",
+            _ when Approx(color, RedEmission) => "Red",
+            _ when Approx(color, BlueEmission) => "Blue",
+            _ when Approx(color, PurpleEmission) => "Purple",
+            _ => "Unknown"
+        };
     }
 }
