@@ -52,7 +52,7 @@ namespace FirefliesTwoO
         {
             base.MapComponentTick();
             
-            if (_particleSystem == null) return;
+            if (_particleSystem is null) return;
             bool isActive = StateHandler.IsActive(map);
             
             switch (isActive)
@@ -72,6 +72,7 @@ namespace FirefliesTwoO
             if (!_allColumnsValidated) return;
             _meshManager.ConstructMesh(_spawnAreaMesh);
             _validEmissionCells = _meshManager.FinalValidCells;
+            
             ParticleSystem.ShapeModule shapeModule = _particleSystem.shape;
             shapeModule.mesh = _spawnAreaMesh;
             UpdateParticleSystemParameters();
@@ -79,14 +80,14 @@ namespace FirefliesTwoO
         
         public override void MapComponentUpdate()
         {
-            if (!map.IsPlayerHome || _particleSystem == null) return;
+            if (!map.IsPlayerHome || _particleSystem is null) return;
             UpdateSimulationSpeed();
 
             if (DrawMeshNow)
             {
-                if (_validEmissionCells is { Count: > 0 })
+                if (ValidEmissionCells is { Count: > 0 })
                 {
-                    MeshOverlayDrawer.DrawMeshArea(_validEmissionCells, ColorManager.BlueEmission);
+                    MeshOverlayDrawer.DrawMeshArea(ValidEmissionCells, ColorManager.BlueEmission);
                 }
             }
             
@@ -101,7 +102,7 @@ namespace FirefliesTwoO
         
         private void InitializeMapSystems()
         {
-            if (_particleSystem != null) return;
+            if (_particleSystem is not null) return;
             if (_ext != null)
             {
                 _mapID = map.GetHashCode();
@@ -110,29 +111,38 @@ namespace FirefliesTwoO
                 _meshManager = new MeshManager(map, _cellValidator.IsCellValidForParticleEmissionMesh);
                 _particleSystem = Builder.CreateFireflyParticleSystem(_mapID);
                 _particleSystem.transform.position = Vector3.zero;
-
+                
                 ColorManager.GetBaseColorGradient(_particleSystem);
                 ColorManager.SetParticleAlpha(_particleSystem, ParticleAlpha);
                 StateHandler.RestoreParticleSystemState(_particleSystem, _isSystemActive, _simulationSpeed);
             }
             else
             {
-                List<string> allowedBiomes = [];
+                /*List<string> allowedBiomes = [];
+                List<string> disallowedBiomes = [];
+                
                 foreach (BiomeDef biomeDef in DefDatabase<BiomeDef>.AllDefsListForReading)
                 {
                     if (biomeDef.HasModExtension<NightlySpawningExtension>())
-                    {
                         allowedBiomes.Add(biomeDef.defName);
-                    }
+                    else
+                        disallowedBiomes.Add(biomeDef.defName);
                 }
-
-                string supportedBiomes = "FF_SupportedBiomes".Translate();
-                string noSupportedBiomes = "FF_NoSupportedBiomes".Translate();
                 
-                string message = allowedBiomes.Count > 0
-                    ? supportedBiomes + string.Join(", ", allowedBiomes)
-                    : noSupportedBiomes;
-                FFLog.Message(message);
+                string supportedBiomes = "FF_SupportedBiomes".Translate();
+                string unsupportedBiomes = "FF_UnsupportedBiomes".Translate();
+                
+                if (allowedBiomes.Count > 0)
+                    FFLog.Message($"{supportedBiomes}: {string.Join(", ", allowedBiomes)}");
+                else
+                    FFLog.Message("No biomes support firefly spawning.");
+                
+                if (disallowedBiomes.Count > 0)
+                    FFLog.Message($"{unsupportedBiomes}: {string.Join(", ", disallowedBiomes)}");*/
+                
+                bool mapIsValid = map.Biome.HasModExtension<NightlySpawningExtension>();
+                FFLog.Message($"[MapComponent_NightlySpawning] Current map biome: " +
+                              $"{map.Biome.defName}, Valid for spawning: {mapIsValid}");
             }
         }
         

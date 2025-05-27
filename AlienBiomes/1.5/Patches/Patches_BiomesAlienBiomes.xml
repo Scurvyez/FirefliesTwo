@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+    <Operation Class="PatchOperationAddModExtension">
+        <xpath>Defs/BiomeDef[defName="SZ_RadiantPlains"]</xpath>
+        <value>
+            <li Class="FirefliesTwoO.NightlySpawningExtension">
+                <biomeEmissionRate>5.2</biomeEmissionRate>
+                <biomeAllowedTempRange>-100~100</biomeAllowedTempRange>
+                <biomeAllowInWinter>false</biomeAllowInWinter>
+            </li>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationAddModExtension">
+        <xpath>Defs/BiomeDef[defName="SZ_DeliriousDunes"]</xpath>
+        <value>
+            <li Class="FirefliesTwoO.NightlySpawningExtension">
+                <biomeEmissionRate>0.7</biomeEmissionRate>
+                <biomeAllowedTempRange>-100~100</biomeAllowedTempRange>
+                <biomeAllowInWinter>true</biomeAllowInWinter>
+            </li>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationAddModExtension">
+        <xpath>Defs/BiomeDef[defName="SZ_CrystallineFlats"]</xpath>
+        <value>
+            <li Class="FirefliesTwoO.NightlySpawningExtension">
+                <biomeEmissionRate>0.9</biomeEmissionRate>
+                <biomeAllowedTempRange>-100~100</biomeAllowedTempRange>
+                <biomeAllowInWinter>false</biomeAllowInWinter>
+            </li>
+        </value>
+    </Operation>
+
+</Patch>

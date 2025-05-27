@@ -11,10 +11,10 @@ namespace FirefliesTwoO
 
         static StateHandler()
         {
-            _ext = Find.CurrentMap.Biome
+            _ext = Find.CurrentMap?.Biome?
                 .GetModExtension<NightlySpawningExtension>();
         }
-
+        
         /// <summary>
         /// Determines if the system is currently active for a given <see cref="Map"/> based on weather, temperature, season, and sunlight conditions.
         /// </summary>
@@ -33,15 +33,15 @@ namespace FirefliesTwoO
                 && (_curSeason is Season.Winter or Season.PermanentWinter)) 
                 return false;
             
-            if (map.mapTemperature.OutdoorTemp > _ext.biomeAllowedTempRange.max 
-                || map.mapTemperature.OutdoorTemp < _ext.biomeAllowedTempRange.min) 
+            if (map.mapTemperature?.OutdoorTemp > _ext.biomeAllowedTempRange.max 
+                || map.mapTemperature?.OutdoorTemp < _ext.biomeAllowedTempRange.min) 
                 return false;
             
             float currentSunGlow = GenCelestial.CurCelestialSunGlow(map);
             if (currentSunGlow > FFDefOf.FF_Config.sunGlowThreshold) 
                 return false;
             
-            return map.weatherManager.curWeather == WeatherDefOf.Clear;
+            return map.weatherManager?.curWeather == WeatherDefOf.Clear;
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace FirefliesTwoO
         /// </param>
         public static void DestroyParticleSystem(ParticleSystem particleSystem)
         {
-            if (particleSystem == null) return;
+            if (particleSystem is null) return;
             Object.Destroy(particleSystem.gameObject);
         }
 
@@ -72,7 +72,7 @@ namespace FirefliesTwoO
         public static void RestoreParticleSystemState(
             ParticleSystem particleSystem, bool isSystemActive, float simulationSpeed)
         {
-            if (particleSystem == null) return;
+            if (particleSystem is null) return;
             particleSystem.gameObject.SetActive(isSystemActive);
 
             if (isSystemActive)
@@ -99,7 +99,7 @@ namespace FirefliesTwoO
         /// </param>
         public static void SetParticleSystemState(ParticleSystem particleSystem, bool isActive)
         {
-            if (particleSystem == null) return;
+            if (particleSystem is null) return;
             if (isActive)
             {
                 particleSystem.gameObject.SetActive(true);

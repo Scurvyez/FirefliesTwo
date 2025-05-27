@@ -8,6 +8,7 @@
 
     <!-- Messages -->
     <FF_SupportedBiomes>Supported biomes for firefly spawning: </FF_SupportedBiomes>
+    <FF_UnsupportedBiomes>Unsupported biomes for firefly spawning: </FF_UnsupportedBiomes>
     <FF_NoSupportedBiomes>No biomes support firefly spawning.</FF_NoSupportedBiomes>
 
     <!-- Jobs -->
