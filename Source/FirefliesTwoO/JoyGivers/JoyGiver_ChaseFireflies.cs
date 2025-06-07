@@ -14,19 +14,32 @@ namespace FirefliesTwoO
         
         public override Job TryGiveJob(Pawn pawn)
         {
-            MapComponent_NightlySpawning mapComp = pawn?.Map
-                .GetComponent<MapComponent_NightlySpawning>();
+            Map map = pawn?.Map;
+            MapComponent_NightlySpawning mapComp = map?.GetComponent<MapComponent_NightlySpawning>();
             
             if (mapComp is not { ParticlesSpawned: true }
                 || !JoyUtility.EnjoyableOutsideNow(pawn))
             {
                 return null;
             }
+            if (PawnUtility.WillSoonHaveBasicNeed(pawn))
+            {
+                return null;
+            }
+            if (map.dangerWatcher.DangerRating >= StoryDanger.High)
+            {
+                return null;
+            }
+            if (!MapCellFinder.TryFindRandomEmissionCell(mapComp, pawn, out IntVec3 result, 45f))
+            {
+                return null;
+            }
+            if (PawnUtility.KnownDangerAt(result, map, pawn))
+            {
+                return null;
+            }
             
-            return !MapCellFinder.TryFindRandomEmissionCell(
-                mapComp, pawn, out IntVec3 result, 45f) 
-                ? null 
-                : JobMaker.MakeJob(def.jobDef, result);
+            return JobMaker.MakeJob(def.jobDef, result);
         }
     }
 }
