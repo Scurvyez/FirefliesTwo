@@ -1,0 +1,4 @@
+S:\Games\Steam\steamapps\common\RimWorld\Mods\FirefliesTwo\1.6\Assemblies\FirefliesTwoO.dll
+S:\Games\Steam\steamapps\common\RimWorld\Mods\FirefliesTwo\1.6\Source\FirefliesTwoO\obj\Debug\FirefliesTwoO.csproj.AssemblyReference.cache
+S:\Games\Steam\steamapps\common\RimWorld\Mods\FirefliesTwo\1.6\Source\FirefliesTwoO\obj\Debug\FirefliesTwoO.csproj.CoreCompileInputs.cache
+S:\Games\Steam\steamapps\common\RimWorld\Mods\FirefliesTwo\1.6\Source\FirefliesTwoO\obj\Debug\FirefliesTwoO.dll
