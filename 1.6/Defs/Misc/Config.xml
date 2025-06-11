@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <FirefliesTwoO.FFConfigDef>
+        <defName>FF_Config</defName>
+
+        <particleSizeFactor>0.3</particleSizeFactor>
+        <sunGlowThreshold>0.3</sunGlowThreshold>
+
+        <!-- ParticleBuilder -->
+        <shapeRandomDirectionAmount>0~360</shapeRandomDirectionAmount>
+        <noiseOctaveCount>2</noiseOctaveCount>
+        <noiseFrequency>1.5</noiseFrequency>
+        <noisePositionAmount>0.5</noisePositionAmount>
+        <noiseStrength>15</noiseStrength>
+
+        <!-- Jobs -->
+        <chaseFirefliesJobFactor>0.75</chaseFirefliesJobFactor>
+        <caughtAFireflyChance>0.25</caughtAFireflyChance>
+    </FirefliesTwoO.FFConfigDef>
+
+</Defs>

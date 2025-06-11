@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+    <Operation Class="PatchOperationAddModExtension">
+        <xpath>Defs/BiomeDef[defName="RG_BoilingForest"]</xpath>
+        <value>
+            <li Class="FirefliesTwoO.NightlySpawningExtension">
+                <biomeEmissionRate>1.4</biomeEmissionRate>
+                <biomeAllowedTempRange>-100~100</biomeAllowedTempRange>
+                <biomeAllowInWinter>true</biomeAllowInWinter>
+            </li>
+        </value>
+    </Operation>
+
+</Patch>

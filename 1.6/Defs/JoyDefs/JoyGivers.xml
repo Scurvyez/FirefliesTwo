@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    
+    <!-- 
+    TODO: maybe make a new joy kind for both of these instead of meditation?
+    -->
+
+    <JoyGiverDef>
+        <defName>FF_ChaseFireflies</defName>
+        <giverClass>FirefliesTwoO.JoyGiver_ChaseFireflies</giverClass>
+        <baseChance>0.75</baseChance>
+        <requireChair>false</requireChair>
+        <desireSit>false</desireSit>
+        <jobDef>FF_ChaseFireflies</jobDef>
+        <joyKind>Meditative</joyKind>
+        <requiredCapacities>
+            <li>Moving</li>
+            <li>Sight</li>
+            <li>Manipulation</li>
+        </requiredCapacities>
+    </JoyGiverDef>
+    
+    <JoyGiverDef>
+        <defName>FF_WatchFirefliesInJar</defName>
+        <giverClass>FirefliesTwoO.JoyGiver_WatchFirefliesInJar</giverClass>
+        <baseChance>2.75</baseChance>
+        <canDoWhileInBed>true</canDoWhileInBed>
+        <jobDef>FF_WatchFirefliesInJar</jobDef>
+        <joyKind>Meditative</joyKind>
+        <requiredCapacities>
+            <li>Moving</li>
+            <li>Sight</li>
+        </requiredCapacities>
+    </JoyGiverDef>
+
+</Defs>

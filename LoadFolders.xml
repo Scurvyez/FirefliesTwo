@@ -12,4 +12,16 @@
         <li IfModActive="regrowth.botr.aspenforest">RegrowthAspen/1.5</li>
         <li IfModActive="regrowth.botr.boilingforest">RegrowthBoiling/1.5</li>
     </v1.5>
+    <v1.6>
+        <li>/</li>
+        <li>1.6</li>
+        <li IfModActive="scurvyez.alienbiomes">AlienBiomes/1.6</li>
+        <li IfModActive="sarg.alphabiomes">AlphaBiomes/1.6</li>
+        <li IfModActive="biomesteam.oasis">BiomesOasis/1.6</li>
+        <li IfModActive="dankpyon.medieval.overhaul">MedievalOverhaul/1.6</li>
+        <li IfModActive="zylle.morevanillabiomes">MoreVanillaBiomes/1.6</li>
+        <li IfModActive="regrowth.botr.core">RegrowthCore/1.6</li>
+        <li IfModActive="regrowth.botr.aspenforest">RegrowthAspen/1.6</li>
+        <li IfModActive="regrowth.botr.boilingforest">RegrowthBoiling/1.6</li>
+    </v1.6>
 </loadFolders>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+    <ThoughtDef Name="FF_BaseFireflyThought" Abstract="True">
+        <durationDays>0.5</durationDays>
+        <nullifyingTraits>
+            <li>Psychopath</li>
+            <li>Undergrounder</li>
+        </nullifyingTraits>
+        <nullifyingPrecepts>
+            <li MayRequire="Ludeon.RimWorld.Ideology">Blindness_Respected</li>
+            <li MayRequire="Ludeon.RimWorld.Ideology">Blindness_Elevated</li>
+            <li MayRequire="Ludeon.RimWorld.Ideology">Blindness_Sublime</li>
+        </nullifyingPrecepts>
+    </ThoughtDef>
+    
+    <ThoughtDef ParentName="FF_BaseFireflyThought">
+        <defName>FF_SawFireflies</defName>
+        <durationDays>0.15</durationDays>
+        <stages>
+            <li>
+                <label>Saw fireflies</label>
+                <description>There are so many! Aaaa, they're so beautiful...</description>
+                <baseMoodEffect>3</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+    
+    <ThoughtDef ParentName="FF_BaseFireflyThought">
+        <defName>FF_ChasedFireflies</defName>
+        <stages>
+            <li>
+                <label>Chased fireflies</label>
+                <description>Hopefully I can do that again tomorrow!</description>
+                <baseMoodEffect>3</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef ParentName="FF_BaseFireflyThought">
+        <defName>FF_CaughtAFirefly</defName>
+        <stages>
+            <li>
+                <label>Caught a firefly</label>
+                <description>That was so much fun. I can't wait to catch another one!</description>
+                <baseMoodEffect>7</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef ParentName="FF_BaseFireflyThought">
+        <defName>FF_SquishedAFirefly</defName>
+        <stages>
+            <li>
+                <label>Squished a firefly</label>
+                <description>Oh no! I was too strong!</description>
+                <baseMoodEffect>-4</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+</Defs>

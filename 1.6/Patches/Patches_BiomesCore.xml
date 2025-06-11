@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+    <Operation Class="PatchOperationSequence">
+        <operations>
+            <li Class="PatchOperationAddModExtension">
+                <xpath>Defs/BiomeDef[defName="BorealForest"]</xpath>
+                <value>
+                    <li Class="FirefliesTwoO.NightlySpawningExtension">
+                        <biomeEmissionRate>0.5</biomeEmissionRate>
+                        <biomeAllowedTempRange>-100~100</biomeAllowedTempRange>
+                        <biomeAllowInWinter>false</biomeAllowInWinter>
+                    </li>
+                </value>
+            </li>
+            <li Class="PatchOperationAddModExtension">
+                <xpath>Defs/BiomeDef[defName="TemperateForest"]</xpath>
+                <value>
+                    <li Class="FirefliesTwoO.NightlySpawningExtension">
+                        <biomeEmissionRate>0.6</biomeEmissionRate>
+                        <biomeAllowedTempRange>-100~100</biomeAllowedTempRange>
+                        <biomeAllowInWinter>false</biomeAllowInWinter>
+                    </li>
+                </value>
+            </li>
+            <li Class="PatchOperationAddModExtension">
+                <xpath>Defs/BiomeDef[defName="TemperateSwamp" or defName="TropicalRainforest"]</xpath>
+                <value>
+                    <li Class="FirefliesTwoO.NightlySpawningExtension">
+                        <biomeEmissionRate>0.7</biomeEmissionRate>
+                        <biomeAllowedTempRange>-100~100</biomeAllowedTempRange>
+                        <biomeAllowInWinter>true</biomeAllowInWinter>
+                    </li>
+                </value>
+            </li>
+            <li Class="PatchOperationAddModExtension">
+                <xpath>Defs/BiomeDef[defName="AridShrubland" or defName="Desert"]</xpath>
+                <value>
+                    <li Class="FirefliesTwoO.NightlySpawningExtension">
+                        <biomeEmissionRate>0.8</biomeEmissionRate>
+                        <biomeAllowedTempRange>-100~100</biomeAllowedTempRange>
+                        <biomeAllowInWinter>false</biomeAllowInWinter>
+                    </li>
+                </value>
+            </li>
+            <li Class="PatchOperationAddModExtension">
+                <xpath>Defs/BiomeDef[defName="ExtremeDesert"]</xpath>
+                <value>
+                    <li Class="FirefliesTwoO.NightlySpawningExtension">
+                        <biomeEmissionRate>0.9</biomeEmissionRate>
+                        <biomeAllowedTempRange>-100~100</biomeAllowedTempRange>
+                        <biomeAllowInWinter>true</biomeAllowInWinter>
+                    </li>
+                </value>
+            </li>
+        </operations>
+    </Operation>
+
+</Patch>
